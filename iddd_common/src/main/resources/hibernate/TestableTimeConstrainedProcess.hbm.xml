@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field" default-cascade="all">
+    <class name="com.saasovation.common.domain.model.process.TestableTimeConstrainedProcess" table="tbl_testable_time_constrained_process" lazy="true">
+        <id name="id" type="long" column="id" unsaved-value="-1">
+	        <generator class="native" />
+        </id>
+        <version column="concurrency_version" name="concurrencyVersion" type="int" />
+        <property name="allowableDuration" column="allowable_duration" type="long" />
+        <property name="confirm1" column="confirm1" type="boolean" />
+        <property name="confirm2" column="confirm2" type="boolean" />
+        <property name="description" column="description" type="java.lang.String" />
+        <component name="processId" class="com.saasovation.common.domain.model.process.ProcessId">
+            <property name="id" column="process_id_id" type="java.lang.String" />
+        </component>
+        <property name="processCompletionType" column="process_completion_type" type="com.saasovation.common.port.adapter.persistence.hibernate.ProcessCompletionTypeUserType" />
+        <property name="startTime" column="start_time" type="java.util.Date" />
+        <property name="tenantId" column="tenant_id" type="java.lang.String" />
+        <property name="timedOutDate" column="timed_out_date" type="java.util.Date" />
+        <property name="totalRetriesPermitted" column="total_retries_permitted" type="int" />
+    </class>
+</hibernate-mapping>

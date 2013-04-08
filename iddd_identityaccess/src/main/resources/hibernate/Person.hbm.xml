@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field" default-cascade="all">
+    <class name="com.saasovation.identityaccess.domain.model.identity.Person" table="tbl_person" lazy="true">
+        <id name="id" type="long" column="id" unsaved-value="-1">
+            <generator class="foreign">
+                <param name="property">user</param>
+            </generator>
+        </id>
+        <version column="concurrency_version" name="concurrencyVersion" type="int" />
+        <component name="contactInformation" class="com.saasovation.identityaccess.domain.model.identity.ContactInformation">
+            <component name="emailAddress" class="com.saasovation.identityaccess.domain.model.identity.EmailAddress">
+                <property name="address" column="contact_information_email_address_address" type="java.lang.String" />
+            </component>
+            <component name="postalAddress" class="com.saasovation.identityaccess.domain.model.identity.PostalAddress">
+                <property name="city" column="contact_information_postal_address_city" type="java.lang.String" />
+                <property name="countryCode" column="contact_information_postal_address_country_code" type="java.lang.String" />
+                <property name="postalCode" column="contact_information_postal_address_postal_code" type="java.lang.String" />
+                <property name="stateProvince" column="contact_information_postal_address_state_province" type="java.lang.String" />
+                <property name="streetAddress" column="contact_information_postal_address_street_address" type="java.lang.String" />
+            </component>
+            <component name="primaryTelephone" class="com.saasovation.identityaccess.domain.model.identity.Telephone">
+                <property name="number" column="contact_information_primary_telephone_number" type="java.lang.String" />
+            </component>
+            <component name="secondaryTelephone" class="com.saasovation.identityaccess.domain.model.identity.Telephone">
+                <property name="number" column="contact_information_secondary_telephone_number" type="java.lang.String" />
+            </component>
+        </component>
+        <component name="name" class="com.saasovation.identityaccess.domain.model.identity.FullName">
+            <property name="firstName" column="name_first_name" type="java.lang.String" />
+            <property name="lastName" column="name_last_name" type="java.lang.String" />
+        </component>
+        <component name="tenantId" class="com.saasovation.identityaccess.domain.model.identity.TenantId">
+            <property name="id" column="tenant_id_id" type="java.lang.String" />
+        </component>
+        <one-to-one name="user" class="com.saasovation.identityaccess.domain.model.identity.User" cascade="all" lazy="false" constrained="true"/>
+    </class>
+</hibernate-mapping>

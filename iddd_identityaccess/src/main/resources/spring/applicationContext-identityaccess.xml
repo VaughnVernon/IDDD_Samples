@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-2.5.xsd ">
+
+    <bean id="authenticationService" class="com.saasovation.identityaccess.domain.model.identity.AuthenticationService">
+	    <constructor-arg ref="tenantRepository" />
+	    <constructor-arg ref="userRepository" />
+	    <constructor-arg ref="encryptionService" />
+    </bean>
+
+    <bean id="authorizationService" class="com.saasovation.identityaccess.domain.model.access.AuthorizationService">
+    	<constructor-arg ref="userRepository" />
+    	<constructor-arg ref="groupRepository" />
+    	<constructor-arg ref="roleRepository" />
+    </bean>
+
+    <bean id="domainRegistry" class="com.saasovation.identityaccess.domain.model.DomainRegistry" />
+
+    <bean id="encryptionService" class="com.saasovation.identityaccess.infrastructure.services.MD5EncryptionService" />
+
+    <bean id="groupMemberService" class="com.saasovation.identityaccess.domain.model.identity.GroupMemberService">
+    	<constructor-arg ref="userRepository" />
+    	<constructor-arg ref="groupRepository" />
+    </bean>
+
+    <bean id="groupRepository" class="com.saasovation.identityaccess.infrastructure.persistence.HibernateGroupRepository" autowire="byName" />
+
+	<bean id="passwordService" class="com.saasovation.identityaccess.domain.model.identity.PasswordService" />
+
+    <bean id="roleRepository" class="com.saasovation.identityaccess.infrastructure.persistence.HibernateRoleRepository" autowire="byName" />
+
+    <bean id="tenantProvisioningService" class="com.saasovation.identityaccess.domain.model.identity.TenantProvisioningService">
+	    <constructor-arg ref="tenantRepository" />
+	    <constructor-arg ref="userRepository" />
+    	<constructor-arg ref="roleRepository" />
+    </bean>
+
+    <bean id="tenantRepository" class="com.saasovation.identityaccess.infrastructure.persistence.HibernateTenantRepository" autowire="byName" />
+
+    <bean id="userRepository" class="com.saasovation.identityaccess.infrastructure.persistence.HibernateUserRepository" autowire="byName" />
+</beans>

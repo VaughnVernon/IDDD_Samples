@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-2.5.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+    <aop:aspectj-autoproxy/>
+
+	<context:annotation-config />
+
+    <bean id="accessApplicationService" class="com.saasovation.identityaccess.application.AccessApplicationService" />
+
+    <bean id="applicationServiceRegistry" class="com.saasovation.identityaccess.application.ApplicationServiceRegistry" autowire="byName" />
+
+    <bean id="eventProcessor" class="com.saasovation.identityaccess.application.IdentityAccessEventProcessor" scope="prototype" autowire="byName" />
+
+    <bean id="eventStore" class="com.saasovation.common.port.adapter.persistence.hibernate.HibernateEventStore" autowire="byName" />
+
+    <bean id="identityApplicationService" class="com.saasovation.identityaccess.application.IdentityApplicationService" autowire="byName" />
+
+    <bean id="notificationApplicationService" class="com.saasovation.identityaccess.application.NotificationApplicationService"  />
+
+    <bean id="notificationPublisher" class="com.saasovation.common.port.adapter.notification.RabbitMQNotificationPublisher">
+        <constructor-arg index="0">
+            <ref bean="eventStore"/>
+        </constructor-arg>
+        <constructor-arg index="1">
+            <ref bean="publishedNotificationTrackerStore"/>
+        </constructor-arg>
+        <constructor-arg index="2" type="java.lang.Object" value="saasovation.identity_access"/>
+    </bean>
+
+    <bean id="publishedNotificationTrackerStore" class="com.saasovation.common.port.adapter.persistence.hibernate.HibernatePublishedNotificationTrackerStore" autowire="byName" />
+
+</beans>

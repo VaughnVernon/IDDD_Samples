@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field" default-cascade="all">
+    <class name="com.saasovation.identityaccess.domain.model.identity.User" table="tbl_user" lazy="true">
+        <id name="id" type="long" column="id" unsaved-value="-1">
+            <generator class="native"/>
+        </id>
+        <version column="concurrency_version" name="concurrencyVersion" type="int" />
+        <component name="enablement" class="com.saasovation.identityaccess.domain.model.identity.Enablement">
+            <property name="enabled" column="enablement_enabled" type="boolean" />
+            <property name="endDate" column="enablement_end_date" type="java.util.Date" />
+            <property name="startDate" column="enablement_start_date" type="java.util.Date" />
+        </component>
+        <property name="password" column="password" type="java.lang.String" />
+        <one-to-one name="person" class="com.saasovation.identityaccess.domain.model.identity.Person" cascade="all" lazy="false" />
+        <component name="tenantId" class="com.saasovation.identityaccess.domain.model.identity.TenantId">
+            <property name="id" column="tenant_id_id" type="java.lang.String" />
+        </component>
+        <property name="username" column="username" type="java.lang.String" />
+    </class>
+</hibernate-mapping>

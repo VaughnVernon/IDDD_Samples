@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field" default-cascade="all">
+    <class name="com.saasovation.identityaccess.domain.model.identity.GroupMember" table="tbl_group_member" lazy="true">
+        <id name="id" type="long" column="id" unsaved-value="-1">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="name" type="java.lang.String" />
+        <component name="tenantId" class="com.saasovation.identityaccess.domain.model.identity.TenantId">
+            <property name="id" column="tenant_id_id" type="java.lang.String" />
+        </component>
+        <property name="type" column="type" type="com.saasovation.identityaccess.infrastructure.persistence.GroupMemberTypeUserType" />
+    </class>
+</hibernate-mapping>

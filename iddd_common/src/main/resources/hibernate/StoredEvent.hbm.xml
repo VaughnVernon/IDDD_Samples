@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field" default-cascade="all">
+    <class name="com.saasovation.common.event.StoredEvent" table="tbl_stored_event" lazy="true">
+        <id name="eventId" type="long" column="event_id" unsaved-value="-1">
+	        <generator class="native" />
+        </id>
+        <property name="eventBody" column="event_body" type="java.lang.String" />
+        <property name="occurredOn" column="occurred_on" type="java.util.Date" />
+        <property name="typeName" column="type_name" type="java.lang.String" />
+    </class>
+</hibernate-mapping>
