@@ -207,7 +207,7 @@ public class MySQLJDBCEventStoreTest extends TestCase {
 
         DomainEventPublisher.instance().reset();
 
-        applicationContext = new ClassPathXmlApplicationContext("applicationContext-common.xml");
+        applicationContext = new ClassPathXmlApplicationContext("spring/applicationContext-common.xml");
 
         this.eventStore = MySQLJDBCEventStore.instance();
     }
