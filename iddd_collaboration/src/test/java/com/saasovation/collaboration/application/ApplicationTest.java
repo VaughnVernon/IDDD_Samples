@@ -492,8 +492,8 @@ public abstract class ApplicationTest extends TestCase {
             applicationContext =
                     new ClassPathXmlApplicationContext(
                             new String[] {
-                                    "applicationContext-collaboration.xml",
-                                    "applicationContext-collaboration-test.xml" });
+                                    "spring/applicationContext-collaboration.xml",
+                                    "spring/applicationContext-collaboration-test.xml" });
         }
 
         if (dataSource == null) {
