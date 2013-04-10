@@ -135,9 +135,9 @@ public abstract class ApplicationServiceTest extends TestCase {
         applicationContext =
                 new ClassPathXmlApplicationContext(
                         new String[] {
-                                "applicationContext-common.xml",
-                                "applicationContext-identityaccess-application.xml",
-                                "applicationContext-identityaccess-test.xml"
+                                "spring/applicationContext-common.xml",
+                                "spring/applicationContext-identityaccess-application.xml",
+                                "spring/applicationContext-identityaccess-test.xml"
                         });
 
 
