@@ -39,7 +39,7 @@ public abstract class DomainTest extends EventTrackingTestCase {
             applicationContext =
                     new ClassPathXmlApplicationContext(
                             new String[] {
-                                    "applicationContext-collaboration.xml" });
+                                    "spring/applicationContext-collaboration.xml" });
         }
 
         if (dataSource == null) {
