@@ -15,6 +15,7 @@
 package com.saasovation.common.port.adapter.messaging.slothmq;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,10 +28,18 @@ public class ClientRegistration {
 	ClientRegistration(InetAddress anIPAddress, int aPort) {
 		super();
 
-		this.exchanges = new HashSet<String>();
-		this.ipAddress = anIPAddress;
-		this.port = aPort;
+		try {
+	        this.exchanges = new HashSet<String>();
+            this.ipAddress = anIPAddress == null ? InetAddress.getLocalHost() : anIPAddress;
+            this.port = aPort;
+        } catch (UnknownHostException e) {
+            throw new IllegalArgumentException("Cannot create client registration because unknown host.");
+        }
 	}
+
+    ClientRegistration(int aPort) {
+        this(null, aPort);
+    }
 
 	public void addSubscription(String anExchangeName) {
 		System.out.println("ADDING EXCHANGE: " + anExchangeName);

@@ -78,8 +78,6 @@ public abstract class DomainTest extends EventTrackingTestCase {
 
         System.out.println("<<<<<<<<<<<<<<<<<<<< (done)");
 
-        LevelDBUnitOfWork.current().rollback();
-
         LevelDBProvider.instance().purge(this.database);
 
         super.tearDown();

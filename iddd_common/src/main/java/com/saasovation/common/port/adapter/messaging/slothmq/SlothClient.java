@@ -14,11 +14,6 @@
 
 package com.saasovation.common.port.adapter.messaging.slothmq;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,10 +23,7 @@ public class SlothClient extends SlothWorker {
 
 	private static SlothClient instance;
 
-	private boolean closed;
-	private DatagramSocket clientSocket;
 	private Map<String,ExchangeListener> exchangeListeners;
-	private InetAddress serverIPAddress;
 	private Object lock;
 
 	public static synchronized SlothClient instance() {
@@ -45,7 +37,7 @@ public class SlothClient extends SlothWorker {
 	public void close() {
 		System.out.println("SLOTH CLIENT: Closing...");
 
-		this.closed = true;
+		super.close();
 
 		List<ExchangeListener> listeners =
 				new ArrayList<ExchangeListener>(this.exchangeListeners.values());
@@ -62,32 +54,13 @@ public class SlothClient extends SlothWorker {
 
 		this.close();
 
-		this.send("CLOSE:");
-
-		this.clientSocket.close();
+		this.sendToServer("CLOSE:");
 	}
 
 	public void publish(String anExchangeName, String aType, String aMessage) {
-
 		String encodedMessage = "PUBLISH:" + anExchangeName + "TYPE:" + aType + "MSG:" + aMessage;
 
-		byte[] publishMessage = encodedMessage.getBytes();
-
-		DatagramPacket sendPacket =
-				new DatagramPacket(
-						publishMessage,
-						publishMessage.length,
-						this.serverIPAddress,
-						PORT);
-
-		try {
-			synchronized (lock) {
-				this.clientSocket.send(sendPacket);
-			}
-		} catch (IOException e) {
-			System.out.println("SLOTH CLIENT: Cannot publish because: " + e.getMessage());
-			e.printStackTrace();
-		}
+        this.sendToServer(encodedMessage);
 	}
 
 	public void register(ExchangeListener anExchangeListener) {
@@ -95,7 +68,7 @@ public class SlothClient extends SlothWorker {
 			this.exchangeListeners.put(anExchangeListener.name(), anExchangeListener);
 		}
 
-		this.send("SUBSCRIBE:" + anExchangeListener.exchangeName());
+		this.sendToServer("SUBSCRIBE:" + this.port() + ":" + anExchangeListener.exchangeName());
 	}
 
 	public void unregister(ExchangeListener anExchangeListener) {
@@ -103,7 +76,7 @@ public class SlothClient extends SlothWorker {
 			this.exchangeListeners.remove(anExchangeListener.name());
 		}
 
-		this.send("UNSUBSCRIBE:" + anExchangeListener.exchangeName());
+		this.sendToServer("UNSUBSCRIBE:" + this.port() + ":" + anExchangeListener.exchangeName());
 	}
 
 	private SlothClient() {
@@ -117,35 +90,7 @@ public class SlothClient extends SlothWorker {
 	}
 
 	private void attach() {
-		try {
-			this.clientSocket = new DatagramSocket();
-			this.clientSocket.setSoTimeout(100);
-			this.serverIPAddress = InetAddress.getByName("localhost");
-
-			this.send("ATTACH:");
-
-		} catch (Exception e) {
-			System.out.println("SLOTH CLIENT: Cannot attach because: " + e.getMessage());
-			e.printStackTrace();
-		}
-	}
-
-	private void send(String anEncodedMessage) {
-		byte[] message = anEncodedMessage.getBytes();
-
-		DatagramPacket sendPacket =
-				new DatagramPacket(
-						message,
-						message.length,
-						this.serverIPAddress,
-						PORT);
-
-		try {
-			this.clientSocket.send(sendPacket);
-		} catch (Exception e) {
-			System.out.println("SLOTH CLIENT: Exception while sending to server: "
-					+ e.getMessage() + ": " + anEncodedMessage);
-		}
+        this.sendToServer("ATTACH:" + this.port());
 	}
 
 	private void dispatchMessage(String anEncodedMessage) {
@@ -182,57 +127,22 @@ public class SlothClient extends SlothWorker {
 		Thread receiverThread = new Thread() {
 			@Override
 			public void run() {
-				byte[] receiveBuffer = new byte[BUFFER_LENGTH];
+				while (!isClosed()) {
+					String receivedData = null;
 
-				DatagramPacket receivePacket =
-						new DatagramPacket(receiveBuffer, BUFFER_LENGTH);
+                    synchronized (lock) {
+                        receivedData = receive();
+                    }
 
-				while (!closed) {
-
-					boolean reallocate = false;
-					boolean received = false;
-
-					try {
-						synchronized (lock) {
-							clientSocket.receive(receivePacket);
-						}
-
-						received = true;
-
-					} catch (SocketTimeoutException e) {
-						// ignore
-					} catch (IOException e) {
-						reallocate = true;
-
-						System.out.println("SLOTH CLIENT: problem receiving because: " + e.getMessage() + ": continuing...");
-						e.printStackTrace();
-					}
-
-					if (received) {
-						dispatchMessage(new String(receivePacket.getData()).trim());
-
-						reallocate = true;
-					}
-
-					if (reallocate) {
-						receiveBuffer = new byte[BUFFER_LENGTH];
-
-						receivePacket = new DatagramPacket(receiveBuffer, BUFFER_LENGTH);
+					if (receivedData != null) {
+						dispatchMessage(receivedData.trim());
 					} else {
-						sleepFor(10L);
+                        sleepFor(10L);
 					}
 				}
 			}
 		};
 
 		receiverThread.start();
-	}
-
-	private void sleepFor(long aMillis) {
-		try {
-			Thread.sleep(aMillis);
-		} catch (InterruptedException e) {
-			// ignore
-		}
 	}
 }

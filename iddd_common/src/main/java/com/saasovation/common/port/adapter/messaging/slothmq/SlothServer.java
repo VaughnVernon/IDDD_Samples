@@ -14,11 +14,6 @@
 
 package com.saasovation.common.port.adapter.messaging.slothmq;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,9 +24,7 @@ import java.util.Map;
  */
 public class SlothServer extends SlothWorker {
 
-	private Map<String,ClientRegistration> clientRegistrations;
-	private boolean closed;
-	private DatagramSocket serverSocket;
+	private Map<Integer,ClientRegistration> clientRegistrations;
 
 	public static void executeInProcessDetachedServer() {
 		Thread serverThread = new Thread() {
@@ -57,79 +50,61 @@ public class SlothServer extends SlothWorker {
 	public SlothServer() {
 		super();
 
-		this.clientRegistrations = new HashMap<String,ClientRegistration>();
-
-		this.openSocket();
+		this.clientRegistrations = new HashMap<Integer,ClientRegistration>();
 	}
 
 	public void execute() {
 
-		while (!this.closed) {
-			DatagramPacket receivePacket = this.receive();
+		while (!this.isClosed()) {
+		    String receivedData = this.receive();
 
-			String message = new String(receivePacket.getData()).trim();
-
-			this.handleMessage(receivePacket, message);
+		    if (receivedData != null) {
+		        this.handleMessage(receivedData);
+		    }
 		}
 	}
 
-	private ClientRegistration attach(DatagramPacket aReceivePacket) {
-		InetAddress ipAddress = aReceivePacket.getAddress();
-		int port = aReceivePacket.getPort();
-
-		String name = ipAddress.toString() + ":" + port;
-
-		ClientRegistration clientRegistration = this.clientRegistrations.get(name);
-
-		if (clientRegistration == null) {
-			clientRegistration = new ClientRegistration(ipAddress, port);
-			this.clientRegistrations.put(name, clientRegistration);
-		}
-
-		return clientRegistration;
+	@Override
+	protected boolean slothHub() {
+	    return true;
 	}
 
-	private void close() {
-		System.out.println("SLOTH SERVER: Closing...");
+	private ClientRegistration attach(String aReceivedData) {
+		int port = Integer.parseInt(aReceivedData.substring(7));
 
-		this.closed = true;
-
-		this.serverSocket.close();
-
-		System.out.println("SLOTH SERVER: Closed.");
+		return this.attach(port);
 	}
 
-	private void handleMessage(DatagramPacket aReceivePacket, String aMessage) {
-		System.out.println("SLOTH SERVER: Handling: " + aMessage);
+    private ClientRegistration attach(int aPort) {
+        ClientRegistration clientRegistration = this.clientRegistrations.get(aPort);
 
-		if (aMessage.startsWith("ATTACH:")) {
-			this.attach(aReceivePacket);
-		} else if (aMessage.startsWith("CLOSE:")) {
+        if (clientRegistration == null) {
+            clientRegistration = new ClientRegistration(aPort);
+            this.clientRegistrations.put(aPort, clientRegistration);
+        }
+
+        return clientRegistration;
+    }
+
+	private void handleMessage(String aReceivedData) {
+		System.out.println("SLOTH SERVER: Handling: " + aReceivedData);
+
+		if (aReceivedData.startsWith("ATTACH:")) {
+			this.attach(aReceivedData);
+		} else if (aReceivedData.startsWith("CLOSE:")) {
 			this.close();
-		} else if (aMessage.startsWith("PUBLISH:")) {
-			this.publishToClients(aReceivePacket, aMessage);
-		} else if (aMessage.startsWith("SUBSCRIBE:")) {
-			this.subscribeClientTo(aReceivePacket, aMessage.substring(10));
-		} else if (aMessage.startsWith("UNSUBSCRIBE:")) {
-			this.unsubscribeClientFrom(aReceivePacket, aMessage.substring(12));
+		} else if (aReceivedData.startsWith("PUBLISH:")) {
+			this.publishToClients(aReceivedData);
+		} else if (aReceivedData.startsWith("SUBSCRIBE:")) {
+			this.subscribeClientTo(aReceivedData.substring(10));
+		} else if (aReceivedData.startsWith("UNSUBSCRIBE:")) {
+			this.unsubscribeClientFrom(aReceivedData.substring(12));
 		} else {
-			System.out.println("SLOTH SERVER: Does not understand: " + aMessage);
+			System.out.println("SLOTH SERVER: Does not understand: " + aReceivedData);
 		}
 	}
 
-	private void openSocket() {
-		try {
-			this.serverSocket = new DatagramSocket(PORT);
-		} catch (SocketException e) {
-			System.out.println("SLOTH SERVER: Won't start because: " + e.getMessage());
-			e.printStackTrace();
-			System.exit(2);
-		}
-	}
-
-	private void publishToClients(
-			DatagramPacket aReceivePacket,
-			String anExchangeMessage) {
+	private void publishToClients(String anExchangeMessage) {
 
 		int exchangeDivider = anExchangeMessage.indexOf("PUBLISH:");
 		int typeDivider = anExchangeMessage.indexOf("TYPE:", exchangeDivider + 8);
@@ -143,88 +118,39 @@ public class SlothServer extends SlothWorker {
 
 			for (ClientRegistration clientSubscriptions : this.clientRegistrations.values()) {
 				if (clientSubscriptions.isSubscribedTo(exchangeName)) {
-					this.send(clientSubscriptions.ipAddress(), clientSubscriptions.port(), anExchangeMessage);
+					this.sendTo(clientSubscriptions.port(), anExchangeMessage);
 				}
 			}
 		}
 	}
 
-	private DatagramPacket receive() {
+	private void subscribeClientTo(String aPortWithExchangeName) {
+	    String[] parts = aPortWithExchangeName.split(":");
+		int port = Integer.parseInt(parts[0]);
+		String exchangeName = parts[1];
 
-		byte[] receiveBuffer = new byte[BUFFER_LENGTH];
-
-		DatagramPacket receivePacket = new DatagramPacket(receiveBuffer, BUFFER_LENGTH);
-
-		try {
-			this.serverSocket.receive(receivePacket);
-		} catch (IOException e) {
-			System.out.println("SLOTH SERVER: Failed to receive because: " + e.getMessage() + ": Continuing...");
-			e.printStackTrace();
-		}
-
-		return receivePacket;
-	}
-
-	private void send(
-			InetAddress anIPAddress,
-			int aPort,
-			String aMessage) {
-
-		byte[] sendBuffer = aMessage.getBytes();
-
-		DatagramPacket sendPacket =
-				new DatagramPacket(
-						sendBuffer,
-						sendBuffer.length,
-						anIPAddress,
-						aPort);
-
-		try {
-			this.serverSocket.send(sendPacket);
-
-			System.out.println("SLOTH SERVER: Sent: " + aMessage);
-
-		} catch (IOException e) {
-			System.out.println("SLOTH SERVER: Failed to send because: " + e.getMessage() + ": Continuing...");
-			e.printStackTrace();
-		}
-	}
-
-	private void subscribeClientTo(
-			DatagramPacket aReceivePacket,
-			String anExchangeName) {
-
-		InetAddress ipAddress = aReceivePacket.getAddress();
-		int port = aReceivePacket.getPort();
-
-		String name = ipAddress.toString() + ":" + port;
-
-		ClientRegistration clientRegistration = this.clientRegistrations.get(name);
+		ClientRegistration clientRegistration = this.clientRegistrations.get(port);
 
 		if (clientRegistration == null) {
-			clientRegistration = this.attach(aReceivePacket);
+			clientRegistration = this.attach(port);
 		}
 
-		clientRegistration.addSubscription(anExchangeName);
+		clientRegistration.addSubscription(exchangeName);
 
-		System.out.println("SLOTH SERVER: Subscribed: " + clientRegistration + " TO: " + anExchangeName);
+		System.out.println("SLOTH SERVER: Subscribed: " + clientRegistration + " TO: " + exchangeName);
 	}
 
-	private void unsubscribeClientFrom(
-			DatagramPacket aReceivePacket,
-			String anExchangeName) {
+	private void unsubscribeClientFrom(String aPortWithExchangeName) {
+        String[] parts = aPortWithExchangeName.split(":");
+        int port = Integer.parseInt(parts[0]);
+        String exchangeName = parts[1];
 
-		InetAddress ipAddress = aReceivePacket.getAddress();
-		int port = aReceivePacket.getPort();
-
-		String name = ipAddress.toString() + ":" + port;
-
-		ClientRegistration clientRegistration = this.clientRegistrations.get(name);
+		ClientRegistration clientRegistration = this.clientRegistrations.get(port);
 
 		if (clientRegistration != null) {
-			clientRegistration.removeSubscription(anExchangeName);
+			clientRegistration.removeSubscription(exchangeName);
 
-			System.out.println("SLOTH SERVER: Unsubscribed: " + clientRegistration + " FROM: " + anExchangeName);
+			System.out.println("SLOTH SERVER: Unsubscribed: " + clientRegistration + " FROM: " + exchangeName);
 		}
 	}
 }
