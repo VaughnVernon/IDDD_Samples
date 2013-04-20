@@ -31,48 +31,50 @@ public abstract class CommonTestCase extends TestCase {
     private Transaction transaction;
 
     public CommonTestCase() {
-        super();
+	super();
     }
 
     protected Session session() {
-        Session session = this.sessionProvider.session();
+	Session session = this.sessionProvider.session();
 
-        return session;
+	return session;
     }
 
     protected Transaction transaction() {
-        return this.transaction;
+	return this.transaction;
     }
 
+    @Override
     protected void setUp() throws Exception {
 
-        DomainEventPublisher.instance().reset();
+	DomainEventPublisher.instance().reset();
 
-        this.applicationContext = new ClassPathXmlApplicationContext("applicationContext-common.xml");
+	this.applicationContext = new ClassPathXmlApplicationContext("spring/applicationContext-common.xml");
 
-        this.sessionProvider = (SpringHibernateSessionProvider) this.applicationContext.getBean("sessionProvider");
+	this.sessionProvider = (SpringHibernateSessionProvider) this.applicationContext.getBean("sessionProvider");
 
-        this.setTransaction(this.session().beginTransaction());
+	this.setTransaction(this.session().beginTransaction());
 
-        System.out.println(">>>>>>>>>>>>>>>>>>>> (start)" + this.getName());
+	System.out.println(">>>>>>>>>>>>>>>>>>>> (start)" + this.getName());
 
-        super.setUp();
+	super.setUp();
     }
 
+    @Override
     protected void tearDown() throws Exception {
 
-        this.transaction().rollback();
+	this.transaction().rollback();
 
-        this.setTransaction(null);
+	this.setTransaction(null);
 
-        this.session().clear();
+	this.session().clear();
 
-        System.out.println("<<<<<<<<<<<<<<<<<<<< (end)");
+	System.out.println("<<<<<<<<<<<<<<<<<<<< (end)");
 
-        super.tearDown();
+	super.tearDown();
     }
 
     private void setTransaction(Transaction aTransaction) {
-        this.transaction = aTransaction;
+	this.transaction = aTransaction;
     }
 }
