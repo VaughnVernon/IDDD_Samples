@@ -44,221 +44,221 @@ public class MySQLJDBCEventStoreTest extends TestCase {
     private EventStore eventStore;
 
     public MySQLJDBCEventStoreTest() {
-        super();
+	super();
     }
 
     public void testConnectAndClose() throws Exception {
-        assertNotNull(eventStore);
+	assertNotNull(eventStore);
     }
 
     public void testAppend() throws Exception {
-        assertNotNull(this.eventStore);
+	assertNotNull(this.eventStore);
 
-        List<DomainEvent> events = new ArrayList<DomainEvent>();
+	List<DomainEvent> events = new ArrayList<DomainEvent>();
 
-        for (int idx = 1; idx <= 2; ++idx) {
-            events.add(new TestableDomainEvent(idx, "Name: " + idx));
-        }
+	for (int idx = 1; idx <= 2; ++idx) {
+	    events.add(new TestableDomainEvent(idx, "Name: " + idx));
+	}
 
-        EventStreamId eventId = new EventStreamId(UUID.randomUUID().toString());
+	EventStreamId eventId = new EventStreamId(UUID.randomUUID().toString());
 
-        this.eventStore.appendWith(eventId, events);
+	this.eventStore.appendWith(eventId, events);
 
-        EventStream eventStream = this.eventStore.fullEventStreamFor(eventId);
+	EventStream eventStream = this.eventStore.fullEventStreamFor(eventId);
 
-        assertEquals(2, eventStream.version());
-        assertEquals(2, eventStream.events().size());
+	assertEquals(2, eventStream.version());
+	assertEquals(2, eventStream.events().size());
 
-        for (int idx = 1; idx <= 2; ++idx) {
-            DomainEvent domainEvent = eventStream.events().get(idx - 1);
+	for (int idx = 1; idx <= 2; ++idx) {
+	    DomainEvent domainEvent = eventStream.events().get(idx - 1);
 
-            assertEquals(idx, ((TestableDomainEvent) domainEvent).id());
-        }
+	    assertEquals(idx, ((TestableDomainEvent) domainEvent).id());
+	}
     }
 
     public void testAppendWrongVersion() throws Exception {
-        assertNotNull(this.eventStore);
+	assertNotNull(this.eventStore);
 
-        List<DomainEvent> events = new ArrayList<DomainEvent>();
+	List<DomainEvent> events = new ArrayList<DomainEvent>();
 
-        for (int idx = 1; idx <= 10; ++idx) {
-            events.add(new TestableDomainEvent(idx, "Name: " + idx));
-        }
+	for (int idx = 1; idx <= 10; ++idx) {
+	    events.add(new TestableDomainEvent(idx, "Name: " + idx));
+	}
 
-        EventStreamId eventId = new EventStreamId(UUID.randomUUID().toString());
+	EventStreamId eventId = new EventStreamId(UUID.randomUUID().toString());
 
-        this.eventStore.appendWith(eventId, events);
+	this.eventStore.appendWith(eventId, events);
 
-        EventStream eventStream = this.eventStore.fullEventStreamFor(eventId);
+	EventStream eventStream = this.eventStore.fullEventStreamFor(eventId);
 
-        assertEquals(10, eventStream.version());
-        assertEquals(10, eventStream.events().size());
+	assertEquals(10, eventStream.version());
+	assertEquals(10, eventStream.events().size());
 
-        events.clear();
-        events.add(new TestableDomainEvent(11, "Name: " + 11));
+	events.clear();
+	events.add(new TestableDomainEvent(11, "Name: " + 11));
 
-        for (int idx = 0; idx < 3; ++idx) {
-            try {
-                this.eventStore.appendWith(eventId.withStreamVersion(8 + idx), events);
+	for (int idx = 0; idx < 3; ++idx) {
+	    try {
+		this.eventStore.appendWith(eventId.withStreamVersion(8 + idx), events);
 
-                fail("Should have thrown an exception.");
+		fail("Should have thrown an exception.");
 
-            } catch (EventStoreAppendException e) {
-                // good
-            }
-        }
+	    } catch (EventStoreAppendException e) {
+		// good
+	    }
+	}
 
-        // this should succeed
+	// this should succeed
 
-        this.eventStore.appendWith(eventId.withStreamVersion(11), events);
+	this.eventStore.appendWith(eventId.withStreamVersion(11), events);
     }
 
     public void testEventsSince() throws Exception {
-        assertNotNull(this.eventStore);
+	assertNotNull(this.eventStore);
 
-        List<DomainEvent> events = new ArrayList<DomainEvent>();
+	List<DomainEvent> events = new ArrayList<DomainEvent>();
 
-        for (int idx = 1; idx <= 10; ++idx) {
-            events.add(new TestableDomainEvent(idx, "Name: " + idx));
-        }
+	for (int idx = 1; idx <= 10; ++idx) {
+	    events.add(new TestableDomainEvent(idx, "Name: " + idx));
+	}
 
-        EventStreamId eventId = new EventStreamId(UUID.randomUUID().toString());
+	EventStreamId eventId = new EventStreamId(UUID.randomUUID().toString());
 
-        this.eventStore.appendWith(eventId, events);
+	this.eventStore.appendWith(eventId, events);
 
-        List<DispatchableDomainEvent> loggedEvents =
-                this.eventStore.eventsSince(this.greatestEventId() - 8L);
+	List<DispatchableDomainEvent> loggedEvents =
+		this.eventStore.eventsSince(this.greatestEventId() - 8L);
 
-        assertEquals(8, loggedEvents.size());
+	assertEquals(8, loggedEvents.size());
     }
 
     public void testEventStreamSince() throws Exception {
-        assertNotNull(this.eventStore);
+	assertNotNull(this.eventStore);
 
-        List<DomainEvent> events = new ArrayList<DomainEvent>();
+	List<DomainEvent> events = new ArrayList<DomainEvent>();
 
-        for (int idx = 1; idx <= 10; ++idx) {
-            events.add(new TestableDomainEvent(idx, "Name: " + idx));
-        }
+	for (int idx = 1; idx <= 10; ++idx) {
+	    events.add(new TestableDomainEvent(idx, "Name: " + idx));
+	}
 
-        EventStreamId eventId = new EventStreamId(UUID.randomUUID().toString());
+	EventStreamId eventId = new EventStreamId(UUID.randomUUID().toString());
 
-        this.eventStore.appendWith(eventId, events);
+	this.eventStore.appendWith(eventId, events);
 
-        for (int idx = 10; idx >= 1; --idx) {
-            EventStream eventStream = this.eventStore.eventStreamSince(eventId.withStreamVersion(idx));
+	for (int idx = 10; idx >= 1; --idx) {
+	    EventStream eventStream = this.eventStore.eventStreamSince(eventId.withStreamVersion(idx));
 
-            assertEquals(10, eventStream.version());
-            assertEquals(10 - idx + 1, eventStream.events().size());
+	    assertEquals(10, eventStream.version());
+	    assertEquals(10 - idx + 1, eventStream.events().size());
 
-            DomainEvent domainEvent = eventStream.events().get(0);
+	    DomainEvent domainEvent = eventStream.events().get(0);
 
-            assertEquals(idx, ((TestableDomainEvent) domainEvent).id());
-        }
+	    assertEquals(idx, ((TestableDomainEvent) domainEvent).id());
+	}
 
-        try {
-            this.eventStore.eventStreamSince(eventId.withStreamVersion(11));
+	try {
+	    this.eventStore.eventStreamSince(eventId.withStreamVersion(11));
 
-            fail("Should have thrown an exception.");
+	    fail("Should have thrown an exception.");
 
-        } catch (EventStoreException e) {
-            // good
-        }
+	} catch (EventStoreException e) {
+	    // good
+	}
     }
 
     public void testFullEventStreamForStreamName() throws Exception {
-        assertNotNull(this.eventStore);
+	assertNotNull(this.eventStore);
 
-        List<DomainEvent> events = new ArrayList<DomainEvent>();
+	List<DomainEvent> events = new ArrayList<DomainEvent>();
 
-        for (int idx = 1; idx <= 3; ++idx) {
-            events.add(new TestableDomainEvent(idx, "Name: " + idx));
-        }
+	for (int idx = 1; idx <= 3; ++idx) {
+	    events.add(new TestableDomainEvent(idx, "Name: " + idx));
+	}
 
-        EventStreamId eventId = new EventStreamId(UUID.randomUUID().toString());
+	EventStreamId eventId = new EventStreamId(UUID.randomUUID().toString());
 
-        this.eventStore.appendWith(eventId, events);
+	this.eventStore.appendWith(eventId, events);
 
-        EventStream eventStream = this.eventStore.fullEventStreamFor(eventId);
+	EventStream eventStream = this.eventStore.fullEventStreamFor(eventId);
 
-        assertEquals(3, eventStream.version());
-        assertEquals(3, eventStream.events().size());
+	assertEquals(3, eventStream.version());
+	assertEquals(3, eventStream.events().size());
 
-        events.clear();
-        events.add(new TestableDomainEvent(4, "Name: " + 4));
+	events.clear();
+	events.add(new TestableDomainEvent(4, "Name: " + 4));
 
-        this.eventStore.appendWith(eventId.withStreamVersion(4), events);
+	this.eventStore.appendWith(eventId.withStreamVersion(4), events);
 
-        eventStream = this.eventStore.fullEventStreamFor(eventId);
+	eventStream = this.eventStore.fullEventStreamFor(eventId);
 
-        assertEquals(4, eventStream.version());
-        assertEquals(4, eventStream.events().size());
+	assertEquals(4, eventStream.version());
+	assertEquals(4, eventStream.events().size());
 
-        for (int idx = 1; idx <= 4; ++idx) {
-            DomainEvent domainEvent = eventStream.events().get(idx - 1);
+	for (int idx = 1; idx <= 4; ++idx) {
+	    DomainEvent domainEvent = eventStream.events().get(idx - 1);
 
-            assertEquals(idx, ((TestableDomainEvent) domainEvent).id());
-        }
+	    assertEquals(idx, ((TestableDomainEvent) domainEvent).id());
+	}
     }
 
     @Override
     protected void setUp() throws Exception {
-        super.setUp();
+	super.setUp();
 
-        DomainEventPublisher.instance().reset();
+	DomainEventPublisher.instance().reset();
 
-        applicationContext = new ClassPathXmlApplicationContext("applicationContext-common.xml");
+	applicationContext = new ClassPathXmlApplicationContext("spring/applicationContext-common.xml");
 
-        this.eventStore = MySQLJDBCEventStore.instance();
+	this.eventStore = MySQLJDBCEventStore.instance();
     }
 
     @Override
     protected void tearDown() throws Exception {
-        this.eventStore.purge();
+	this.eventStore.purge();
 
-        this.eventStore.close();
+	this.eventStore.close();
 
-        super.tearDown();
+	super.tearDown();
     }
 
     private long greatestEventId() {
-        long greatestEventId = 0;
+	long greatestEventId = 0;
 
-        DataSource dataSource = (DataSource) applicationContext.getBean("eventStoreDataSource");
-        Connection connection = null;
-        ResultSet result = null;
+	DataSource dataSource = (DataSource) applicationContext.getBean("eventStoreDataSource");
+	Connection connection = null;
+	ResultSet result = null;
 
-        try {
-            connection = dataSource.getConnection();
+	try {
+	    connection = dataSource.getConnection();
 
-            PreparedStatement statement =
-                    dataSource
-                        .getConnection()
-                        .prepareStatement("SELECT MAX(event_id) from tbl_es_event_store");
+	    PreparedStatement statement =
+		    dataSource
+		    .getConnection()
+		    .prepareStatement("SELECT MAX(event_id) from tbl_es_event_store");
 
-            result = statement.executeQuery();
+	    result = statement.executeQuery();
 
-            if (result.next()) {
-                greatestEventId = result.getLong(1);
-            }
+	    if (result.next()) {
+		greatestEventId = result.getLong(1);
+	    }
 
-        } catch (Throwable t) {
+	} catch (Throwable t) {
 
-        } finally {
-            if (result != null) {
-                try {
-                    result.close();
-                } catch (Throwable t) {
-                    // ignore
-                }
-            }
-            try {
-                connection.close();
-            } catch (Throwable t) {
-                // ignore
-            }
-        }
+	} finally {
+	    if (result != null) {
+		try {
+		    result.close();
+		} catch (Throwable t) {
+		    // ignore
+		}
+	    }
+	    try {
+		connection.close();
+	    } catch (Throwable t) {
+		// ignore
+	    }
+	}
 
-        return greatestEventId;
+	return greatestEventId;
     }
 }

@@ -31,35 +31,37 @@ public abstract class DomainTest extends EventTrackingTestCase {
     private StorageCleaner storageCleaner;
 
     protected DomainTest() {
-        super();
+	super();
     }
 
+    @Override
     protected void setUp() throws Exception {
-        if (applicationContext == null) {
-            applicationContext =
-                    new ClassPathXmlApplicationContext(
-                            new String[] {
-                                    "applicationContext-collaboration.xml" });
-        }
+	if (applicationContext == null) {
+	    applicationContext =
+		    new ClassPathXmlApplicationContext(
+			    new String[] {
+				    "spring/applicationContext-collaboration.xml" });
+	}
 
-        if (dataSource == null) {
-            dataSource = (DataSource) applicationContext.getBean("collaborationDataSource");
-        }
+	if (dataSource == null) {
+	    dataSource = (DataSource) applicationContext.getBean("collaborationDataSource");
+	}
 
-        System.out.println(">>>>>>>>>>>>>>>>>>>> " + this.getName());
+	System.out.println(">>>>>>>>>>>>>>>>>>>> " + this.getName());
 
-        storageCleaner = new StorageCleaner(this.dataSource);
+	storageCleaner = new StorageCleaner(this.dataSource);
 
-        super.setUp();
+	super.setUp();
     }
 
+    @Override
     protected void tearDown() throws Exception {
-        storageCleaner.clean();
+	storageCleaner.clean();
 
-        ConnectionProvider.closeConnection();
+	ConnectionProvider.closeConnection();
 
-        System.out.println("<<<<<<<<<<<<<<<<<<<< (done)");
+	System.out.println("<<<<<<<<<<<<<<<<<<<< (done)");
 
-        super.tearDown();
+	super.tearDown();
     }
 }

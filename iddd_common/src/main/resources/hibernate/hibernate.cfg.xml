@@ -10,9 +10,9 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
-        <mapping resource="PublishedNotificationTracker.hbm.xml" />
-        <mapping resource="StoredEvent.hbm.xml" />
-        <mapping resource="TestableTimeConstrainedProcess.hbm.xml" />
-        <mapping resource="TimeConstrainedProcessTracker.hbm.xml" />
+        <mapping resource="hibernate/PublishedNotificationTracker.hbm.xml" />
+        <mapping resource="hibernate/StoredEvent.hbm.xml" />
+        <mapping resource="hibernate/TestableTimeConstrainedProcess.hbm.xml" />
+        <mapping resource="hibernate/TimeConstrainedProcessTracker.hbm.xml" />
     </session-factory>
 </hibernate-configuration>

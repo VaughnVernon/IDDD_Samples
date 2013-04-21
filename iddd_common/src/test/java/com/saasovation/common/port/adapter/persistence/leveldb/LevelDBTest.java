@@ -22,32 +22,32 @@ import com.saasovation.common.domain.model.DomainEventPublisher;
 
 public abstract class LevelDBTest extends TestCase {
 
-    protected static final String TEST_DATABASE = "/data/leveldb/iddd_common_test";
+    protected static final String TEST_DATABASE = "target/data/leveldb/iddd_common_test";
 
     private DB database;
 
     public LevelDBTest() {
-        super();
+	super();
     }
 
     protected DB database() {
-        return this.database;
+	return this.database;
     }
 
     @Override
     protected void setUp() throws Exception {
-        this.database = LevelDBProvider.instance().databaseFrom(TEST_DATABASE);
+	this.database = LevelDBProvider.instance().databaseFrom(TEST_DATABASE);
 
-        DomainEventPublisher.instance().reset();
+	DomainEventPublisher.instance().reset();
 
-        super.setUp();
+	super.setUp();
     }
 
     @Override
     protected void tearDown() throws Exception {
-        LevelDBProvider.instance().purge(this.database);
+	LevelDBProvider.instance().purge(this.database);
 
-        super.tearDown();
+	super.tearDown();
     }
 
 }

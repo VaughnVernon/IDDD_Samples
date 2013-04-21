@@ -31,53 +31,55 @@ public abstract class DomainTest extends TestCase {
     private Transaction transaction;
 
     protected DomainTest() {
-        super();
+	super();
     }
 
     protected Session session() {
-        Session session = this.sessionProvider.session();
+	Session session = this.sessionProvider.session();
 
-        return session;
+	return session;
     }
 
+    @Override
     protected void setUp() throws Exception {
 
-        applicationContext =
-                new ClassPathXmlApplicationContext(
-                        new String[] {
-                                "applicationContext-identityaccess.xml",
-                                "applicationContext-common.xml" });
+	applicationContext = new ClassPathXmlApplicationContext(new String[] {
+		"spring/applicationContext-identityaccess.xml",
+		"spring/applicationContext-identityaccess-test.xml",
+		"spring/applicationContext-identityaccess-application.xml",
+	"spring/applicationContext-common.xml" });
 
-        this.sessionProvider =
-                (SpringHibernateSessionProvider) applicationContext.getBean("sessionProvider");
+	this.sessionProvider = (SpringHibernateSessionProvider) applicationContext
+		.getBean("sessionProvider");
 
-        this.setTransaction(this.session().beginTransaction());
+	this.setTransaction(this.session().beginTransaction());
 
-        DomainEventPublisher.instance().reset();
+	DomainEventPublisher.instance().reset();
 
-        System.out.println(">>>>>>>>>>>>>>>>>>>> " + this.getName());
+	System.out.println(">>>>>>>>>>>>>>>>>>>> " + this.getName());
 
-        super.setUp();
+	super.setUp();
     }
 
+    @Override
     protected void tearDown() throws Exception {
 
-        this.transaction().rollback();
+	this.transaction().rollback();
 
-        this.setTransaction(null);
+	this.setTransaction(null);
 
-        this.session().clear();
+	this.session().clear();
 
-        System.out.println("<<<<<<<<<<<<<<<<<<<< (done)");
+	System.out.println("<<<<<<<<<<<<<<<<<<<< (done)");
 
-        super.tearDown();
+	super.tearDown();
     }
 
     protected Transaction transaction() {
-        return transaction;
+	return transaction;
     }
 
     private void setTransaction(Transaction aTransaction) {
-        this.transaction = aTransaction;
+	this.transaction = aTransaction;
     }
 }
