@@ -13,6 +13,7 @@
 		<module>iddd_collaboration</module>
 		<module>iddd_common</module>
 		<module>iddd_identityaccess</module>
+		<module>iddd_issuetrack</module>
 	</modules>
 
 	<properties>
