@@ -1,4 +1,4 @@
-package com.saasovation.issuetrack.domain.model.issue;
+package com.saasovation.issuetrack.domain.model.product.issue;
 
 import static java.util.UUID.randomUUID;
 

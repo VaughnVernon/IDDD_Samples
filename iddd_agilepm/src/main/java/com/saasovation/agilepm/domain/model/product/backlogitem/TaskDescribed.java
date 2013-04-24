@@ -14,58 +14,43 @@
 
 package com.saasovation.agilepm.domain.model.product.backlogitem;
 
-import java.util.Date;
-
 import com.saasovation.agilepm.domain.model.tenant.TenantId;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class TaskDescribed implements DomainEvent {
+public class TaskDescribed extends DomainEvent {
 
     private BacklogItemId backlogItemId;
     private String description;
-    private int eventVersion;
-    private Date occurredOn;
     private TaskId taskId;
     private TenantId tenantId;
 
     public TaskDescribed(
-            TenantId aTenantId,
-            BacklogItemId aBacklogItemId,
-            TaskId aTaskId,
-            String aDescription) {
+	    TenantId aTenantId,
+	    BacklogItemId aBacklogItemId,
+	    TaskId aTaskId,
+	    String aDescription) {
 
-        super();
+	super();
 
-        this.backlogItemId = aBacklogItemId;
-        this.description = aDescription;
-        this.eventVersion = 1;
-        this.occurredOn = new Date();
-        this.taskId = aTaskId;
-        this.tenantId = aTenantId;
+	this.backlogItemId = aBacklogItemId;
+	this.description = aDescription;
+	this.taskId = aTaskId;
+	this.tenantId = aTenantId;
     }
 
     public BacklogItemId backlogItemId() {
-        return this.backlogItemId;
+	return this.backlogItemId;
     }
 
     public String description() {
-        return this.description;
-    }
-
-    public int eventVersion() {
-        return this.eventVersion;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.description;
     }
 
     public TaskId taskId() {
-        return this.taskId;
+	return this.taskId;
     }
 
     public TenantId tenantId() {
-        return this.tenantId;
+	return this.tenantId;
     }
 }

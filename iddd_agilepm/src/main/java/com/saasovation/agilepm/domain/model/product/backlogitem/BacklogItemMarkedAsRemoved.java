@@ -14,42 +14,26 @@
 
 package com.saasovation.agilepm.domain.model.product.backlogitem;
 
-import java.util.Date;
-
 import com.saasovation.agilepm.domain.model.tenant.TenantId;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class BacklogItemMarkedAsRemoved implements DomainEvent {
+public class BacklogItemMarkedAsRemoved extends DomainEvent {
 
     private BacklogItemId backlogItemId;
-    private int eventVersion;
-    private Date occurredOn;
     private TenantId tenantId;
 
     public BacklogItemMarkedAsRemoved(TenantId aTenantId, BacklogItemId aBacklogItemId) {
-        super();
+	super();
 
-        this.backlogItemId = aBacklogItemId;
-        this.eventVersion = 1;
-        this.occurredOn = new Date();
-        this.tenantId = aTenantId;
+	this.backlogItemId = aBacklogItemId;
+	this.tenantId = aTenantId;
     }
 
     public BacklogItemId backlogItemId() {
-        return this.backlogItemId;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.backlogItemId;
     }
 
     public TenantId tenantId() {
-        return this.tenantId;
+	return this.tenantId;
     }
 }

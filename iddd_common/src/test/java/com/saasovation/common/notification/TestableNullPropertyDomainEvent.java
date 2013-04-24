@@ -14,16 +14,12 @@
 
 package com.saasovation.common.notification;
 
-import java.util.Date;
-
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class TestableNullPropertyDomainEvent implements DomainEvent {
+public class TestableNullPropertyDomainEvent extends DomainEvent {
 
-    private int eventVersion;
     private Long id;
     private String name;
-    private Date occurredOn;
     private Integer numberMustBeNull;
     private String textMustBeNull;
     private String textMustBeNull2;
@@ -31,110 +27,91 @@ public class TestableNullPropertyDomainEvent implements DomainEvent {
     private Nested nullNested;
 
     public TestableNullPropertyDomainEvent(Long anId, String aName) {
-        super();
+	super();
 
-        this.setEventVersion(1);
-        this.setId(anId);
-        this.setName(aName);
-        this.setOccurredOn(new Date());
+	this.setId(anId);
+	this.setName(aName);
 
-        this.nested = new Nested();
-        this.nullNested = null;
-    }
-
-    public int eventVersion() {
-        return eventVersion;
+	this.nested = new Nested();
+	this.nullNested = null;
     }
 
     public Long id() {
-        return id;
+	return id;
     }
 
     public Nested nested() {
-        return nested;
+	return nested;
     }
 
     public Nested nullNested() {
-        return nullNested;
+	return nullNested;
     }
 
     public Integer numberMustBeNull() {
-        return numberMustBeNull;
+	return numberMustBeNull;
     }
 
     public String textMustBeNull() {
-        return textMustBeNull;
+	return textMustBeNull;
     }
 
     public String textMustBeNull2() {
-        return textMustBeNull2;
+	return textMustBeNull2;
     }
 
     public String name() {
-        return name;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
-    }
-
-    private void setEventVersion(int anEventVersion) {
-        this.eventVersion = anEventVersion;
+	return name;
     }
 
     private void setId(Long id) {
-        this.id = id;
+	this.id = id;
     }
 
     private void setName(String name) {
-        this.name = name;
-    }
-
-    private void setOccurredOn(Date occurredOn) {
-        this.occurredOn = occurredOn;
+	this.name = name;
     }
 
     public static class Nested {
-        private String nestedTextMustBeNull;
+	private String nestedTextMustBeNull;
 
-        private NestedDeeply nestedDeeply;
-        private NestedDeeply nullNestedDeeply;
+	private NestedDeeply nestedDeeply;
+	private NestedDeeply nullNestedDeeply;
 
-        public Nested() {
-            super();
+	public Nested() {
+	    super();
 
-            this.nestedDeeply = new NestedDeeply();
-            this.nullNestedDeeply = null;
-        }
+	    this.nestedDeeply = new NestedDeeply();
+	    this.nullNestedDeeply = null;
+	}
 
-        public NestedDeeply nestedDeeply() {
-            return nestedDeeply;
-        }
+	public NestedDeeply nestedDeeply() {
+	    return nestedDeeply;
+	}
 
-        public NestedDeeply nullNestedDeeply() {
-            return nullNestedDeeply;
-        }
+	public NestedDeeply nullNestedDeeply() {
+	    return nullNestedDeeply;
+	}
 
-        public String nestedTextMustBeNull() {
-            return nestedTextMustBeNull;
-        }
+	public String nestedTextMustBeNull() {
+	    return nestedTextMustBeNull;
+	}
     }
 
     public static class NestedDeeply {
-        private String nestedDeeplyTextMustBeNull;
-        private String nestedDeeplyTextMustBeNull2;
+	private String nestedDeeplyTextMustBeNull;
+	private String nestedDeeplyTextMustBeNull2;
 
-        public NestedDeeply() {
-            super();
-        }
+	public NestedDeeply() {
+	    super();
+	}
 
-        public String nestedDeeplyTextMustBeNull() {
-            return nestedDeeplyTextMustBeNull;
-        }
+	public String nestedDeeplyTextMustBeNull() {
+	    return nestedDeeplyTextMustBeNull;
+	}
 
-        public String nestedDeeplyTextMustBeNull2() {
-            return nestedDeeplyTextMustBeNull2;
-        }
+	public String nestedDeeplyTextMustBeNull2() {
+	    return nestedDeeplyTextMustBeNull2;
+	}
     }
 }

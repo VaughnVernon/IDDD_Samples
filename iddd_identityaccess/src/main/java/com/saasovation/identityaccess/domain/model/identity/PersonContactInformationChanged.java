@@ -14,51 +14,35 @@
 
 package com.saasovation.identityaccess.domain.model.identity;
 
-import java.util.Date;
-
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class PersonContactInformationChanged implements DomainEvent {
+public class PersonContactInformationChanged extends DomainEvent {
 
     private ContactInformation contactInformation;
-    private int eventVersion;
-    private Date occurredOn;
     private TenantId tenantId;
     private String username;
 
     public PersonContactInformationChanged(
-            TenantId aTenantId,
-            String aUsername,
-            ContactInformation aContactInformation) {
+	    TenantId aTenantId,
+	    String aUsername,
+	    ContactInformation aContactInformation) {
 
-        super();
+	super();
 
-        this.contactInformation = aContactInformation;
-        this.eventVersion = 1;
-        this.occurredOn = new Date();
-        this.tenantId = aTenantId;
-        this.username = aUsername;
+	this.contactInformation = aContactInformation;
+	this.tenantId = aTenantId;
+	this.username = aUsername;
     }
 
     public ContactInformation contactInformation() {
-        return this.contactInformation;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.contactInformation;
     }
 
     public TenantId tenantId() {
-        return this.tenantId;
+	return this.tenantId;
     }
 
     public String username() {
-        return this.username;
+	return this.username;
     }
 }

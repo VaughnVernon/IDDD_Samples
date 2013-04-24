@@ -14,48 +14,32 @@
 
 package com.saasovation.collaboration.domain.model.forum;
 
-import java.util.Date;
-
 import com.saasovation.collaboration.domain.model.tenant.Tenant;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class ForumClosed implements DomainEvent {
+public class ForumClosed extends DomainEvent {
 
-    private int eventVersion;
     private String exclusiveOwner;
     private ForumId forumId;
-    private Date occurredOn;
     private Tenant tenant;
 
     public ForumClosed(Tenant aTenant, ForumId aForumId, String anExclusiveOwner) {
-        super();
+	super();
 
-        this.eventVersion = 1;
-        this.exclusiveOwner = anExclusiveOwner;
-        this.forumId = aForumId;
-        this.occurredOn = new Date();
-        this.tenant = aTenant;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
+	this.exclusiveOwner = anExclusiveOwner;
+	this.forumId = aForumId;
+	this.tenant = aTenant;
     }
 
     public String exclusiveOwner() {
-        return this.exclusiveOwner;
+	return this.exclusiveOwner;
     }
 
     public ForumId forumId() {
-        return this.forumId;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.forumId;
     }
 
     public Tenant tenant() {
-        return this.tenant;
+	return this.tenant;
     }
 }

@@ -14,75 +14,60 @@
 
 package com.saasovation.collaboration.domain.model.calendar;
 
-import java.util.Date;
 import java.util.Set;
 
 import com.saasovation.collaboration.domain.model.collaborator.Owner;
 import com.saasovation.collaboration.domain.model.tenant.Tenant;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class CalendarCreated implements DomainEvent {
+public class CalendarCreated extends DomainEvent {
 
     private CalendarId calendarId;
     private String description;
-    private int eventVersion;
     private String name;
-    private Date occurredOn;
     private Owner owner;
     private Set<CalendarSharer> sharedWith;
     private Tenant tenant;
 
     public CalendarCreated(
-            Tenant aTenant,
-            CalendarId aCalendarId,
-            String aName,
-            String aDescription,
-            Owner anOwner,
-            Set<CalendarSharer> aSharedWith) {
+	    Tenant aTenant,
+	    CalendarId aCalendarId,
+	    String aName,
+	    String aDescription,
+	    Owner anOwner,
+	    Set<CalendarSharer> aSharedWith) {
 
-        super();
+	super();
 
-        this.calendarId = aCalendarId;
-        this.description = aDescription;
-        this.eventVersion = 1;
-        this.name = aName;
-        this.occurredOn = new Date();
-        this.owner = anOwner;
-        this.sharedWith = aSharedWith;
-        this.tenant = aTenant;
+	this.calendarId = aCalendarId;
+	this.description = aDescription;
+	this.name = aName;
+	this.owner = anOwner;
+	this.sharedWith = aSharedWith;
+	this.tenant = aTenant;
     }
 
     public CalendarId calendarId() {
-        return this.calendarId;
+	return this.calendarId;
     }
 
     public String description() {
-        return this.description;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
+	return this.description;
     }
 
     public String name() {
-        return this.name;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.name;
     }
 
     public Owner owner() {
-        return this.owner;
+	return this.owner;
     }
 
     public Set<CalendarSharer> sharedWith() {
-        return this.sharedWith;
+	return this.sharedWith;
     }
 
     public Tenant tenant() {
-        return this.tenant;
+	return this.tenant;
     }
 }

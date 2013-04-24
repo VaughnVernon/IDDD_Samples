@@ -14,59 +14,43 @@
 
 package com.saasovation.collaboration.domain.model.calendar;
 
-import java.util.Date;
-
 import com.saasovation.collaboration.domain.model.tenant.Tenant;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class CalendarUnshared implements DomainEvent {
+public class CalendarUnshared extends DomainEvent {
 
     private CalendarId calendarId;
     private CalendarSharer calendarSharer;
-    private int eventVersion;
     private String name;
-    private Date occurredOn;
     private Tenant tenant;
 
     public CalendarUnshared(
-            Tenant aTenant,
-            CalendarId aCalendarId,
-            String aName,
-            CalendarSharer aCalendarSharer) {
+	    Tenant aTenant,
+	    CalendarId aCalendarId,
+	    String aName,
+	    CalendarSharer aCalendarSharer) {
 
-        super();
+	super();
 
-        this.calendarId = aCalendarId;
-        this.calendarSharer = aCalendarSharer;
-        this.eventVersion = 1;
-        this.name = aName;
-        this.occurredOn = new Date();
-        this.tenant = aTenant;
+	this.calendarId = aCalendarId;
+	this.calendarSharer = aCalendarSharer;
+	this.name = aName;
+	this.tenant = aTenant;
     }
 
     public CalendarId calendarId() {
-        return this.calendarId;
+	return this.calendarId;
     }
 
     public CalendarSharer calendarSharer() {
-        return this.calendarSharer;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
+	return this.calendarSharer;
     }
 
     public String name() {
-        return this.name;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.name;
     }
 
     public Tenant tenant() {
-        return this.tenant;
+	return this.tenant;
     }
 }

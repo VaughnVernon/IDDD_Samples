@@ -16,9 +16,23 @@ package com.saasovation.common.domain.model;
 
 import java.util.Date;
 
-public interface DomainEvent {
+public abstract class DomainEvent {
 
-    public int eventVersion();
+    private Date occuredOn = new Date();
 
-    public Date occurredOn();
+    public Date occurredOn() {
+	return occuredOn;
+    }
+
+    public int eventVersion() {
+	return isVersioned() ? version() : 1;
+    }
+
+    private boolean isVersioned() {
+	return this.getClass().isAnnotationPresent(Version.class);
+    }
+
+    private int version() {
+	return this.getClass().getAnnotation(Version.class).value();
+    }
 }

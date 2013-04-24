@@ -14,60 +14,44 @@
 
 package com.saasovation.collaboration.domain.model.forum;
 
-import java.util.Date;
-
 import com.saasovation.collaboration.domain.model.collaborator.Moderator;
 import com.saasovation.collaboration.domain.model.tenant.Tenant;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class ForumModeratorChanged implements DomainEvent {
+public class ForumModeratorChanged extends DomainEvent {
 
-    private int eventVersion;
     private String exclusiveOwner;
     private ForumId forumId;
     private Moderator moderator;
-    private Date occurredOn;
     private Tenant tenant;
 
     public ForumModeratorChanged(
-            Tenant aTenant,
-            ForumId aForumId,
-            Moderator aModerator,
-            String anExclusiveOwner) {
+	    Tenant aTenant,
+	    ForumId aForumId,
+	    Moderator aModerator,
+	    String anExclusiveOwner) {
 
-        super();
+	super();
 
-        this.eventVersion = 1;
-        this.exclusiveOwner = anExclusiveOwner;
-        this.forumId = aForumId;
-        this.moderator = aModerator;
-        this.occurredOn = new Date();
-        this.tenant = aTenant;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
+	this.exclusiveOwner = anExclusiveOwner;
+	this.forumId = aForumId;
+	this.moderator = aModerator;
+	this.tenant = aTenant;
     }
 
     public String exclusiveOwner() {
-        return this.exclusiveOwner;
+	return this.exclusiveOwner;
     }
 
     public ForumId forumId() {
-        return this.forumId;
+	return this.forumId;
     }
 
     public Moderator moderator() {
-        return this.moderator;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.moderator;
     }
 
     public Tenant tenant() {
-        return this.tenant;
+	return this.tenant;
     }
 }

@@ -14,74 +14,58 @@
 
 package com.saasovation.collaboration.domain.model.forum;
 
-import java.util.Date;
-
 import com.saasovation.collaboration.domain.model.collaborator.Author;
 import com.saasovation.collaboration.domain.model.tenant.Tenant;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class DiscussionStarted implements DomainEvent {
+public class DiscussionStarted extends DomainEvent {
 
     private Author author;
     private DiscussionId discussionId;
-    private int eventVersion;
     private String exclusiveOwner;
     private ForumId forumId;
-    private Date occurredOn;
     private String subject;
     private Tenant tenant;
 
     public DiscussionStarted(
-            Tenant aTenant,
-            ForumId aForumId,
-            DiscussionId aDiscussionId,
-            Author anAuthor,
-            String aSubject,
-            String anExclusiveOwner) {
+	    Tenant aTenant,
+	    ForumId aForumId,
+	    DiscussionId aDiscussionId,
+	    Author anAuthor,
+	    String aSubject,
+	    String anExclusiveOwner) {
 
-        super();
+	super();
 
-        this.author = anAuthor;
-        this.discussionId = aDiscussionId;
-        this.eventVersion = 1;
-        this.exclusiveOwner = anExclusiveOwner;
-        this.forumId = aForumId;
-        this.occurredOn = new Date();
-        this.subject = aSubject;
-        this.tenant = aTenant;
+	this.author = anAuthor;
+	this.discussionId = aDiscussionId;
+	this.exclusiveOwner = anExclusiveOwner;
+	this.forumId = aForumId;
+	this.subject = aSubject;
+	this.tenant = aTenant;
     }
 
     public Author author() {
-        return this.author;
+	return this.author;
     }
 
     public DiscussionId discussionId() {
-        return this.discussionId;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
+	return this.discussionId;
     }
 
     public String exclusiveOwner() {
-        return this.exclusiveOwner;
+	return this.exclusiveOwner;
     }
 
     public ForumId forumId() {
-        return this.forumId;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.forumId;
     }
 
     public String subject() {
-        return this.subject;
+	return this.subject;
     }
 
     public Tenant tenant() {
-        return this.tenant;
+	return this.tenant;
     }
 }

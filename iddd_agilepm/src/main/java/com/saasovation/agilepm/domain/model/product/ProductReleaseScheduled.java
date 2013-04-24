@@ -20,75 +20,61 @@ import com.saasovation.agilepm.domain.model.product.release.ReleaseId;
 import com.saasovation.agilepm.domain.model.tenant.TenantId;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class ProductReleaseScheduled implements DomainEvent {
+public class ProductReleaseScheduled extends DomainEvent {
 
     private Date begins;
     private String description;
-    private int eventVersion;
     private Date ends;
     private String name;
-    private Date occurredOn;
     private ProductId productId;
     private ReleaseId releaseId;
     private TenantId tenantId;
 
     public ProductReleaseScheduled(
-            TenantId aTenantId,
-            ProductId aProductId,
-            ReleaseId aReleaseId,
-            String aName,
-            String aDescription,
-            Date aBegins,
-            Date anEnds) {
+	    TenantId aTenantId,
+	    ProductId aProductId,
+	    ReleaseId aReleaseId,
+	    String aName,
+	    String aDescription,
+	    Date aBegins,
+	    Date anEnds) {
 
-        super();
+	super();
 
-        this.begins = aBegins;
-        this.description = aDescription;
-        this.eventVersion = 1;
-        this.ends = anEnds;
-        this.name = aName;
-        this.occurredOn = new Date();
-        this.productId = aProductId;
-        this.releaseId = aReleaseId;
-        this.tenantId = aTenantId;
+	this.begins = aBegins;
+	this.description = aDescription;
+	this.ends = anEnds;
+	this.name = aName;
+	this.productId = aProductId;
+	this.releaseId = aReleaseId;
+	this.tenantId = aTenantId;
     }
 
     public Date begins() {
-        return this.begins;
+	return this.begins;
     }
 
     public String description() {
-        return this.description;
+	return this.description;
     }
 
     public Date ends() {
-        return this.ends;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
+	return this.ends;
     }
 
     public String name() {
-        return this.name;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.name;
     }
 
     public ProductId productId() {
-        return this.productId;
+	return this.productId;
     }
 
     public ReleaseId releaseId() {
-        return this.releaseId;
+	return this.releaseId;
     }
 
     public TenantId tenantId() {
-        return this.tenantId;
+	return this.tenantId;
     }
 }

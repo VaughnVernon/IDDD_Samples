@@ -14,47 +14,31 @@
 
 package com.saasovation.identityaccess.domain.model.identity;
 
-import java.util.Date;
-
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class GroupUserRemoved implements DomainEvent {
+public class GroupUserRemoved extends DomainEvent {
 
-    private int eventVersion;
     private String groupName;
-    private Date occurredOn;
     private TenantId tenantId;
     private String username;
 
     public GroupUserRemoved(TenantId aTenantId, String aGroupName, String aUsername) {
-        super();
+	super();
 
-        this.eventVersion = 1;
-        this.groupName = aGroupName;
-        this.occurredOn = new Date();
-        this.tenantId = aTenantId;
-        this.username = aUsername;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
+	this.groupName = aGroupName;
+	this.tenantId = aTenantId;
+	this.username = aUsername;
     }
 
     public String groupName() {
-        return this.groupName;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.groupName;
     }
 
     public TenantId tenantId() {
-        return this.tenantId;
+	return this.tenantId;
     }
 
     public String username() {
-        return this.username;
+	return this.username;
     }
 }

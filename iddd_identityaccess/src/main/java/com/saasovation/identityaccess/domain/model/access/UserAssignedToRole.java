@@ -14,73 +14,57 @@
 
 package com.saasovation.identityaccess.domain.model.access;
 
-import java.util.Date;
-
 import com.saasovation.common.domain.model.DomainEvent;
 import com.saasovation.identityaccess.domain.model.identity.TenantId;
 
-public class UserAssignedToRole implements DomainEvent {
+public class UserAssignedToRole extends DomainEvent {
 
     private String emailAddress;
-    private int eventVersion;
     private String firstName;
     private String lastName;
-    private Date occurredOn;
     private String roleName;
     private TenantId tenantId;
     private String username;
 
     public UserAssignedToRole(
-            TenantId aTenantId,
-            String aRoleName,
-            String aUsername,
-            String aFirstName,
-            String aLastName,
-            String anEmailAddress) {
+	    TenantId aTenantId,
+	    String aRoleName,
+	    String aUsername,
+	    String aFirstName,
+	    String aLastName,
+	    String anEmailAddress) {
 
-        super();
+	super();
 
-        this.emailAddress = anEmailAddress;
-        this.eventVersion = 1;
-        this.firstName = aFirstName;
-        this.lastName = aLastName;
-        this.occurredOn = new Date();
-        this.roleName = aRoleName;
-        this.tenantId = aTenantId;
-        this.username = aUsername;
+	this.emailAddress = anEmailAddress;
+	this.firstName = aFirstName;
+	this.lastName = aLastName;
+	this.roleName = aRoleName;
+	this.tenantId = aTenantId;
+	this.username = aUsername;
     }
 
     public String emailAddress() {
-        return this.emailAddress;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
+	return this.emailAddress;
     }
 
     public String firstName() {
-        return this.firstName;
+	return this.firstName;
     }
 
     public String lastName() {
-        return this.lastName;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.lastName;
     }
 
     public String roleName() {
-        return this.roleName;
+	return this.roleName;
     }
 
     public TenantId tenantId() {
-        return this.tenantId;
+	return this.tenantId;
     }
 
     public String username() {
-        return this.username;
+	return this.username;
     }
 }

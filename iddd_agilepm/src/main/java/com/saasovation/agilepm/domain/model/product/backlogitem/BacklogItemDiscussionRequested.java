@@ -14,60 +14,44 @@
 
 package com.saasovation.agilepm.domain.model.product.backlogitem;
 
-import java.util.Date;
-
 import com.saasovation.agilepm.domain.model.product.ProductId;
 import com.saasovation.agilepm.domain.model.tenant.TenantId;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class BacklogItemDiscussionRequested implements DomainEvent {
+public class BacklogItemDiscussionRequested extends DomainEvent {
 
     private BacklogItemId backlogItemId;
-    private int eventVersion;
-    private Date occurredOn;
     private ProductId productId;
     private boolean requestingDiscussion;
     private TenantId tenantId;
 
     public BacklogItemDiscussionRequested(
-            TenantId aTenantId,
-            ProductId aProductId,
-            BacklogItemId aBacklogItemId,
-            boolean isRequestingDiscussion) {
+	    TenantId aTenantId,
+	    ProductId aProductId,
+	    BacklogItemId aBacklogItemId,
+	    boolean isRequestingDiscussion) {
 
-        super();
+	super();
 
-        this.backlogItemId = aBacklogItemId;
-        this.eventVersion = 1;
-        this.occurredOn = new Date();
-        this.productId = aProductId;
-        this.requestingDiscussion = isRequestingDiscussion;
-        this.tenantId = aTenantId;
+	this.backlogItemId = aBacklogItemId;
+	this.productId = aProductId;
+	this.requestingDiscussion = isRequestingDiscussion;
+	this.tenantId = aTenantId;
     }
 
     public BacklogItemId backlogItemId() {
-        return this.backlogItemId;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.backlogItemId;
     }
 
     public ProductId productId() {
-        return this.productId;
+	return this.productId;
     }
 
     public boolean isRequestingDiscussion() {
-        return this.requestingDiscussion;
+	return this.requestingDiscussion;
     }
 
     public TenantId tenantId() {
-        return this.tenantId;
+	return this.tenantId;
     }
 }

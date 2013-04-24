@@ -14,49 +14,33 @@
 
 package com.saasovation.agilepm.domain.model.product.backlogitem;
 
-import java.util.Date;
-
 import com.saasovation.agilepm.domain.model.product.sprint.SprintId;
 import com.saasovation.agilepm.domain.model.tenant.TenantId;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class BacklogItemUncommitted implements DomainEvent {
+public class BacklogItemUncommitted extends DomainEvent {
 
     private BacklogItemId backlogItemId;
-    private int eventVersion;
-    private Date occurredOn;
     private TenantId tenantId;
     private SprintId uncommittedFromSprintId;
 
     public BacklogItemUncommitted(TenantId aTenantId, BacklogItemId aBacklogItemId, SprintId anUncommittedFromSprintId) {
-        super();
+	super();
 
-        this.backlogItemId = aBacklogItemId;
-        this.eventVersion = 1;
-        this.occurredOn = new Date();
-        this.tenantId = aTenantId;
-        this.uncommittedFromSprintId = anUncommittedFromSprintId;
+	this.backlogItemId = aBacklogItemId;
+	this.tenantId = aTenantId;
+	this.uncommittedFromSprintId = anUncommittedFromSprintId;
     }
 
     public BacklogItemId backlogItemId() {
-        return this.backlogItemId;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.backlogItemId;
     }
 
     public TenantId tenantId() {
-        return this.tenantId;
+	return this.tenantId;
     }
 
     public SprintId uncommittedFromSprintId() {
-        return this.uncommittedFromSprintId;
+	return this.uncommittedFromSprintId;
     }
 }

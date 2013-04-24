@@ -14,41 +14,25 @@
 
 package com.saasovation.identityaccess.domain.model.identity;
 
-import java.util.Date;
-
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class UserPasswordChanged implements DomainEvent {
+public class UserPasswordChanged extends DomainEvent {
 
-    private int eventVersion;
-    private Date occurredOn;
     private TenantId tenantId;
     private String username;
 
     public UserPasswordChanged(TenantId aTenantId, String aUsername) {
-        super();
+	super();
 
-        this.eventVersion = 1;
-        this.occurredOn = new Date();
-        this.tenantId = aTenantId;
-        this.username = aUsername;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	this.tenantId = aTenantId;
+	this.username = aUsername;
     }
 
     public TenantId tenantId() {
-        return this.tenantId;
+	return this.tenantId;
     }
 
     public String username() {
-        return this.username;
+	return this.username;
     }
 }

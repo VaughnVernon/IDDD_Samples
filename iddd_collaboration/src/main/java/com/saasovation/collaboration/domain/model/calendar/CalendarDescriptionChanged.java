@@ -14,59 +14,43 @@
 
 package com.saasovation.collaboration.domain.model.calendar;
 
-import java.util.Date;
-
 import com.saasovation.collaboration.domain.model.tenant.Tenant;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class CalendarDescriptionChanged implements DomainEvent {
+public class CalendarDescriptionChanged extends DomainEvent {
 
     private CalendarId calendarId;
     private String description;
-    private int eventVersion;
     private String name;
-    private Date occurredOn;
     private Tenant tenant;
 
     public CalendarDescriptionChanged(
-            Tenant aTenant,
-            CalendarId aCalendarId,
-            String aName,
-            String aDescription) {
+	    Tenant aTenant,
+	    CalendarId aCalendarId,
+	    String aName,
+	    String aDescription) {
 
-        super();
+	super();
 
-        this.calendarId = aCalendarId;
-        this.description = aDescription;
-        this.eventVersion = 1;
-        this.name = aName;
-        this.occurredOn = new Date();
-        this.tenant = aTenant;
+	this.calendarId = aCalendarId;
+	this.description = aDescription;
+	this.name = aName;
+	this.tenant = aTenant;
     }
 
     public CalendarId calendarId() {
-        return this.calendarId;
+	return this.calendarId;
     }
 
     public String description() {
-        return this.description;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
+	return this.description;
     }
 
     public String name() {
-        return this.name;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.name;
     }
 
     public Tenant tenant() {
-        return this.tenant;
+	return this.tenant;
     }
 }
