@@ -28,12 +28,17 @@ public class ObjectSerializerIntegrationTest extends AbstractTest {
 	TestDomainEvent event = new TestDomainEvent();
 	String serializedEvent = serializer.serialize(event);
 
-	TestDomainEvent actual = serializer.deserialize(serializedEvent, TestDomainEvent.class);
+	System.out.println(serializedEvent);
 
-	assertThat(actual.eventVersion()).isEqualTo(3);
+	NewerTestDomainEvent actual = serializer.deserialize(serializedEvent, NewerTestDomainEvent.class);
+
+	assertThat(actual.eventVersion()).isEqualTo(1);
     }
 
-    @Version(3)
+    @Version(1)
     private static final class TestDomainEvent extends DomainEvent {}
+
+    @Version(3)
+    private static final class NewerTestDomainEvent extends DomainEvent {}
 
 }

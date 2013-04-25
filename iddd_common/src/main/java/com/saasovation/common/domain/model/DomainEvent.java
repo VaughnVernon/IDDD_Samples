@@ -19,12 +19,21 @@ import java.util.Date;
 public abstract class DomainEvent {
 
     private Date occuredOn = new Date();
+    private int eventVersion;
+
+    public DomainEvent() {
+	eventVersion = calculateVersion();
+    }
 
     public Date occurredOn() {
 	return occuredOn;
     }
 
     public int eventVersion() {
+	return eventVersion;
+    }
+
+    private int calculateVersion() {
 	return isVersioned() ? version() : 1;
     }
 
