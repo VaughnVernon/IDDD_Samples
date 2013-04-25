@@ -14,74 +14,58 @@
 
 package com.saasovation.agilepm.domain.model.product;
 
-import java.util.Date;
-
 import com.saasovation.agilepm.domain.model.team.ProductOwnerId;
 import com.saasovation.agilepm.domain.model.tenant.TenantId;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class ProductDiscussionRequested implements DomainEvent {
+public class ProductDiscussionRequested extends DomainEvent {
 
     private String description;
-    private int eventVersion;
     private String name;
-    private Date occurredOn;
     private ProductId productId;
     private ProductOwnerId productOwnerId;
     private boolean requestingDiscussion;
     private TenantId tenantId;
 
     public ProductDiscussionRequested(
-            TenantId aTenantId,
-            ProductId aProductId,
-            ProductOwnerId aProductOwnerId,
-            String aName,
-            String aDescription,
-            boolean aRequestingDiscussion) {
+	    TenantId aTenantId,
+	    ProductId aProductId,
+	    ProductOwnerId aProductOwnerId,
+	    String aName,
+	    String aDescription,
+	    boolean aRequestingDiscussion) {
 
-        super();
+	super();
 
-        this.description = aDescription;
-        this.eventVersion = 1;
-        this.name = aName;
-        this.occurredOn = new Date();
-        this.productId = aProductId;
-        this.productOwnerId = aProductOwnerId;
-        this.requestingDiscussion = aRequestingDiscussion;
-        this.tenantId = aTenantId;
+	this.description = aDescription;
+	this.name = aName;
+	this.productId = aProductId;
+	this.productOwnerId = aProductOwnerId;
+	this.requestingDiscussion = aRequestingDiscussion;
+	this.tenantId = aTenantId;
     }
 
     public String description() {
-        return this.description;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
+	return this.description;
     }
 
     public String name() {
-        return this.name;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.name;
     }
 
     public ProductId productId() {
-        return this.productId;
+	return this.productId;
     }
 
     public ProductOwnerId productOwnerId() {
-        return this.productOwnerId;
+	return this.productOwnerId;
     }
 
     public boolean isRequestingDiscussion() {
-        return this.requestingDiscussion;
+	return this.requestingDiscussion;
     }
 
     public TenantId tenantId() {
-        return this.tenantId;
+	return this.tenantId;
     }
 }

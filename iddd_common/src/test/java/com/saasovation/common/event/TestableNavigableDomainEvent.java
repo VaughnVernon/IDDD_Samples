@@ -14,46 +14,23 @@
 
 package com.saasovation.common.event;
 
-import java.util.Date;
-
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class TestableNavigableDomainEvent implements DomainEvent {
+public class TestableNavigableDomainEvent extends DomainEvent {
 
-    private int eventVersion;
     private TestableDomainEvent nestedEvent;
-    private Date occurredOn;
 
     public TestableNavigableDomainEvent(long anId, String aName) {
-        super();
+	super();
 
-        this.setEventVersion(1);
-        this.setNestedEvent(new TestableDomainEvent(anId, aName));
-        this.setOccurredOn(new Date());
-    }
-
-    public int eventVersion() {
-        return eventVersion;
+	this.setNestedEvent(new TestableDomainEvent(anId, aName));
     }
 
     public TestableDomainEvent nestedEvent() {
-        return nestedEvent;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
-    }
-
-    private void setEventVersion(int eventVersion) {
-        this.eventVersion = eventVersion;
+	return nestedEvent;
     }
 
     private void setNestedEvent(TestableDomainEvent nestedEvent) {
-        this.nestedEvent = nestedEvent;
-    }
-
-    private void setOccurredOn(Date occurredOn) {
-        this.occurredOn = occurredOn;
+	this.nestedEvent = nestedEvent;
     }
 }

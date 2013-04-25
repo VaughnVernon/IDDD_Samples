@@ -14,52 +14,36 @@
 
 package com.saasovation.agilepm.domain.model.product;
 
-import java.util.Date;
-
 import com.saasovation.agilepm.domain.model.tenant.TenantId;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class ProductDiscussionInitiated implements DomainEvent {
+public class ProductDiscussionInitiated extends DomainEvent {
 
-    private int eventVersion;
-    private Date occurredOn;
     private ProductDiscussion productDiscussion;
     private ProductId productId;
     private TenantId tenantId;
 
     public ProductDiscussionInitiated(
-            TenantId aTenantId,
-            ProductId aProductId,
-            ProductDiscussion aProductDiscussion) {
+	    TenantId aTenantId,
+	    ProductId aProductId,
+	    ProductDiscussion aProductDiscussion) {
 
-        super();
+	super();
 
-        this.eventVersion = 1;
-        this.occurredOn = new Date();
-        this.productDiscussion = aProductDiscussion;
-        this.productId = aProductId;
-        this.tenantId = aTenantId;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	this.productDiscussion = aProductDiscussion;
+	this.productId = aProductId;
+	this.tenantId = aTenantId;
     }
 
     public ProductDiscussion productDiscussion() {
-        return this.productDiscussion;
+	return this.productDiscussion;
     }
 
     public ProductId productId() {
-        return this.productId;
+	return this.productId;
     }
 
     public TenantId tenantId() {
-        return this.tenantId;
+	return this.tenantId;
     }
 }

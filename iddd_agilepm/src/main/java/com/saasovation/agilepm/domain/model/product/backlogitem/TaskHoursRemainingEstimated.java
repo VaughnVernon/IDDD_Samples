@@ -14,58 +14,43 @@
 
 package com.saasovation.agilepm.domain.model.product.backlogitem;
 
-import java.util.Date;
-
 import com.saasovation.agilepm.domain.model.tenant.TenantId;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class TaskHoursRemainingEstimated implements DomainEvent {
+public class TaskHoursRemainingEstimated extends DomainEvent {
 
     private BacklogItemId backlogItemId;
-    private int eventVersion;
     private int hoursRemaining;
-    private Date occurredOn;
     private TaskId taskId;
     private TenantId tenantId;
 
     public TaskHoursRemainingEstimated(
-            TenantId aTenantId,
-            BacklogItemId aBacklogItemId,
-            TaskId aTaskId,
-            int aHoursRemaining) {
+	    TenantId aTenantId,
+	    BacklogItemId aBacklogItemId,
+	    TaskId aTaskId,
+	    int aHoursRemaining) {
 
-        super();
+	super();
 
-        this.backlogItemId = aBacklogItemId;
-        this.eventVersion = 1;
-        this.hoursRemaining = aHoursRemaining;
-        this.occurredOn = new Date();
-        this.taskId = aTaskId;
-        this.tenantId = aTenantId;
+	this.backlogItemId = aBacklogItemId;
+	this.hoursRemaining = aHoursRemaining;
+	this.taskId = aTaskId;
+	this.tenantId = aTenantId;
     }
 
     public BacklogItemId backlogItemId() {
-        return this.backlogItemId;
-    }
-
-    public int eventVersion() {
-        return this.eventVersion;
+	return this.backlogItemId;
     }
 
     public int hoursRemaining() {
-        return this.hoursRemaining;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.hoursRemaining;
     }
 
     public TaskId taskId() {
-        return this.taskId;
+	return this.taskId;
     }
 
     public TenantId tenantId() {
-        return this.tenantId;
+	return this.tenantId;
     }
 }

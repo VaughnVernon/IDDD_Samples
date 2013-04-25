@@ -14,35 +14,19 @@
 
 package com.saasovation.common.port.adapter.messaging;
 
-import java.util.Date;
-
 import com.saasovation.common.domain.model.DomainEvent;
 
-public abstract class PhoneNumberProcessEvent implements DomainEvent {
+public abstract class PhoneNumberProcessEvent extends DomainEvent {
 
-    private int eventVersion;
-    private Date occurredOn;
     private String processId;
 
     public PhoneNumberProcessEvent(String aProcessId) {
-        super();
+	super();
 
-        this.eventVersion = 1;
-        this.occurredOn = new Date();
-        this.processId = aProcessId;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	this.processId = aProcessId;
     }
 
     public String processId() {
-        return this.processId;
+	return this.processId;
     }
 }

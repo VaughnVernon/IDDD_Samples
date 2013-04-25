@@ -14,73 +14,57 @@
 
 package com.saasovation.collaboration.domain.model.forum;
 
-import java.util.Date;
-
 import com.saasovation.collaboration.domain.model.tenant.Tenant;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class PostContentAltered implements DomainEvent {
+public class PostContentAltered extends DomainEvent {
 
     private String bodyText;
     private DiscussionId discussionId;
-    private int eventVersion;
     private ForumId forumId;
-    private Date occurredOn;
     private PostId postId;
     private String subject;
     private Tenant tenant;
 
     public PostContentAltered(
-            Tenant aTenant,
-            ForumId aForumId,
-            DiscussionId aDiscussionId,
-            PostId aPostId,
-            String aSubject,
-            String aBodyText) {
+	    Tenant aTenant,
+	    ForumId aForumId,
+	    DiscussionId aDiscussionId,
+	    PostId aPostId,
+	    String aSubject,
+	    String aBodyText) {
 
-        super();
+	super();
 
-        this.bodyText = aBodyText;
-        this.discussionId = aDiscussionId;
-        this.eventVersion = 1;
-        this.forumId = aForumId;
-        this.occurredOn = new Date();
-        this.postId = aPostId;
-        this.subject = aSubject;
-        this.tenant = aTenant;
+	this.bodyText = aBodyText;
+	this.discussionId = aDiscussionId;
+	this.forumId = aForumId;
+	this.postId = aPostId;
+	this.subject = aSubject;
+	this.tenant = aTenant;
     }
 
     public String bodyText() {
-        return this.bodyText;
+	return this.bodyText;
     }
 
     public DiscussionId discussionId() {
-        return this.discussionId;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
+	return this.discussionId;
     }
 
     public ForumId forumId() {
-        return this.forumId;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.forumId;
     }
 
     public PostId postId() {
-        return this.postId;
+	return this.postId;
     }
 
     public String subject() {
-        return this.subject;
+	return this.subject;
     }
 
     public Tenant tenant() {
-        return this.tenant;
+	return this.tenant;
     }
 }

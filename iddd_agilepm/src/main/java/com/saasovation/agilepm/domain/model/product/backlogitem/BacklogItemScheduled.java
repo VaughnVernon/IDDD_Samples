@@ -14,49 +14,33 @@
 
 package com.saasovation.agilepm.domain.model.product.backlogitem;
 
-import java.util.Date;
-
 import com.saasovation.agilepm.domain.model.product.release.ReleaseId;
 import com.saasovation.agilepm.domain.model.tenant.TenantId;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class BacklogItemScheduled implements DomainEvent {
+public class BacklogItemScheduled extends DomainEvent {
 
     private BacklogItemId backlogItemId;
-    private int eventVersion;
-    private Date occurredOn;
     private ReleaseId scheduledForReleaseId;
     private TenantId tenantId;
 
     public BacklogItemScheduled(TenantId aTenantId, BacklogItemId aBacklogItemId, ReleaseId aScheduledForReleaseId) {
-        super();
+	super();
 
-        this.backlogItemId = aBacklogItemId;
-        this.eventVersion = 1;
-        this.occurredOn = new Date();
-        this.scheduledForReleaseId = aScheduledForReleaseId;
-        this.tenantId = aTenantId;
+	this.backlogItemId = aBacklogItemId;
+	this.scheduledForReleaseId = aScheduledForReleaseId;
+	this.tenantId = aTenantId;
     }
 
     public BacklogItemId backlogItemId() {
-        return this.backlogItemId;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.backlogItemId;
     }
 
     public ReleaseId scheduledForReleaseId() {
-        return this.scheduledForReleaseId;
+	return this.scheduledForReleaseId;
     }
 
     public TenantId tenantId() {
-        return this.tenantId;
+	return this.tenantId;
     }
 }

@@ -20,75 +20,61 @@ import com.saasovation.agilepm.domain.model.product.sprint.SprintId;
 import com.saasovation.agilepm.domain.model.tenant.TenantId;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class ProductSprintScheduled implements DomainEvent {
+public class ProductSprintScheduled extends DomainEvent {
 
     private Date begins;
     private Date ends;
-    private int eventVersion;
     private String goals;
     private String name;
-    private Date occurredOn;
     private ProductId productId;
     private SprintId sprintId;
     private TenantId tenantId;
 
     public ProductSprintScheduled(
-            TenantId aTenantId,
-            ProductId aProductId,
-            SprintId aSprintId,
-            String aName,
-            String aGoals,
-            Date aBegins,
-            Date anEnds) {
+	    TenantId aTenantId,
+	    ProductId aProductId,
+	    SprintId aSprintId,
+	    String aName,
+	    String aGoals,
+	    Date aBegins,
+	    Date anEnds) {
 
-        super();
+	super();
 
-        this.begins = aBegins;
-        this.ends = anEnds;
-        this.eventVersion = 1;
-        this.goals = aGoals;
-        this.name = aName;
-        this.occurredOn = new Date();
-        this.productId = aProductId;
-        this.sprintId = aSprintId;
-        this.tenantId = aTenantId;
+	this.begins = aBegins;
+	this.ends = anEnds;
+	this.goals = aGoals;
+	this.name = aName;
+	this.productId = aProductId;
+	this.sprintId = aSprintId;
+	this.tenantId = aTenantId;
     }
 
     public Date begins() {
-        return this.begins;
+	return this.begins;
     }
 
     public Date ends() {
-        return this.ends;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
+	return this.ends;
     }
 
     public String goals() {
-        return this.goals;
+	return this.goals;
     }
 
     public String name() {
-        return this.name;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.name;
     }
 
     public ProductId productId() {
-        return this.productId;
+	return this.productId;
     }
 
     public SprintId sprintId() {
-        return this.sprintId;
+	return this.sprintId;
     }
 
     public TenantId tenantId() {
-        return this.tenantId;
+	return this.tenantId;
     }
 }

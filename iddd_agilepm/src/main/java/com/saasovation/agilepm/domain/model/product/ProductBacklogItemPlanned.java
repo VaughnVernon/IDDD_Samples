@@ -14,20 +14,16 @@
 
 package com.saasovation.agilepm.domain.model.product;
 
-import java.util.Date;
-
 import com.saasovation.agilepm.domain.model.product.backlogitem.BacklogItemId;
 import com.saasovation.agilepm.domain.model.product.backlogitem.BacklogItemType;
 import com.saasovation.agilepm.domain.model.product.backlogitem.StoryPoints;
 import com.saasovation.agilepm.domain.model.tenant.TenantId;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class ProductBacklogItemPlanned implements DomainEvent {
+public class ProductBacklogItemPlanned extends DomainEvent {
 
     private BacklogItemId backlogItemId;
     private String category;
-    private int eventVersion;
-    private Date occurredOn;
     private ProductId productId;
     private StoryPoints storyPoints;
     private String summary;
@@ -35,62 +31,50 @@ public class ProductBacklogItemPlanned implements DomainEvent {
     private BacklogItemType type;
 
     public ProductBacklogItemPlanned(
-            TenantId aTenantId,
-            ProductId aProductId,
-            BacklogItemId aBacklogItemId,
-            String aSummary,
-            String aCategory,
-            BacklogItemType aType,
-            StoryPoints aStoryPoints) {
+	    TenantId aTenantId,
+	    ProductId aProductId,
+	    BacklogItemId aBacklogItemId,
+	    String aSummary,
+	    String aCategory,
+	    BacklogItemType aType,
+	    StoryPoints aStoryPoints) {
 
-        super();
+	super();
 
-        this.backlogItemId = aBacklogItemId;
-        this.category = aCategory;
-        this.eventVersion = 1;
-        this.occurredOn = new Date();
-        this.productId = aProductId;
-        this.storyPoints = aStoryPoints;
-        this.summary = aSummary;
-        this.tenantId = aTenantId;
-        this.type = aType;
+	this.backlogItemId = aBacklogItemId;
+	this.category = aCategory;
+	this.productId = aProductId;
+	this.storyPoints = aStoryPoints;
+	this.summary = aSummary;
+	this.tenantId = aTenantId;
+	this.type = aType;
     }
 
     public BacklogItemId backlogItemId() {
-        return this.backlogItemId;
+	return this.backlogItemId;
     }
 
     public String category() {
-        return this.category;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.category;
     }
 
     public ProductId productId() {
-        return this.productId;
+	return this.productId;
     }
 
     public StoryPoints storyPoints() {
-        return this.storyPoints;
+	return this.storyPoints;
     }
 
     public String summary() {
-        return this.summary;
+	return this.summary;
     }
 
     public TenantId tenantId() {
-        return this.tenantId;
+	return this.tenantId;
     }
 
     public BacklogItemType type() {
-        return this.type;
+	return this.type;
     }
 }

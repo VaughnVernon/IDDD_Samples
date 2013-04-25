@@ -14,46 +14,23 @@
 
 package com.saasovation.common.event;
 
-import java.util.Date;
-
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class AnotherTestableDomainEvent implements DomainEvent {
+public class AnotherTestableDomainEvent extends DomainEvent {
 
-    private int eventVersion;
-    private Date occurredOn;
     private double value;
 
     public AnotherTestableDomainEvent(double aValue) {
-        super();
+	super();
 
-        this.setEventVersion(1);
-        this.setOccurredOn(new Date());
-        this.setValue(aValue);
-    }
-
-    public int eventVersion() {
-        return eventVersion;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	this.setValue(aValue);
     }
 
     public double value() {
-        return this.value;
-    }
-
-    private void setEventVersion(int eventVersion) {
-        this.eventVersion = eventVersion;
-    }
-
-    private void setOccurredOn(Date occurredOn) {
-        this.occurredOn = occurredOn;
+	return this.value;
     }
 
     private void setValue(double value) {
-        this.value = value;
+	this.value = value;
     }
 }

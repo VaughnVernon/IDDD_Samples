@@ -14,80 +14,64 @@
 
 package com.saasovation.agilepm.domain.model.product.backlogitem;
 
-import java.util.Date;
-
 import com.saasovation.agilepm.domain.model.tenant.TenantId;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class TaskDefined implements DomainEvent {
+public class TaskDefined extends DomainEvent {
 
     private BacklogItemId backlogItemId;
     private String description;
-    private int eventVersion;
     private int hoursRemaining;
     private String name;
-    private Date occurredOn;
     private TaskId taskId;
     private TenantId tenantId;
     private String volunteerMemberId;
 
     public TaskDefined(
-            TenantId aTenantId,
-            BacklogItemId aBacklogItemId,
-            TaskId aTaskId,
-            String aVolunteerMemberId,
-            String aName,
-            String aDescription,
-            int aHoursRemaining) {
+	    TenantId aTenantId,
+	    BacklogItemId aBacklogItemId,
+	    TaskId aTaskId,
+	    String aVolunteerMemberId,
+	    String aName,
+	    String aDescription,
+	    int aHoursRemaining) {
 
-        super();
+	super();
 
-        this.backlogItemId = aBacklogItemId;
-        this.description = aDescription;
-        this.eventVersion = 1;
-        this.hoursRemaining = aHoursRemaining;
-        this.name = aName;
-        this.occurredOn = new Date();
-        this.taskId = aTaskId;
-        this.tenantId = aTenantId;
-        this.volunteerMemberId = aVolunteerMemberId;
+	this.backlogItemId = aBacklogItemId;
+	this.description = aDescription;
+	this.hoursRemaining = aHoursRemaining;
+	this.name = aName;
+	this.taskId = aTaskId;
+	this.tenantId = aTenantId;
+	this.volunteerMemberId = aVolunteerMemberId;
     }
 
     public BacklogItemId backlogItemId() {
-        return this.backlogItemId;
+	return this.backlogItemId;
     }
 
     public String description() {
-        return this.description;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
+	return this.description;
     }
 
     public int hoursRemaining() {
-        return this.hoursRemaining;
+	return this.hoursRemaining;
     }
 
     public String name() {
-        return this.name;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.name;
     }
 
     public TaskId taskId() {
-        return this.taskId;
+	return this.taskId;
     }
 
     public TenantId tenantId() {
-        return this.tenantId;
+	return this.tenantId;
     }
 
     public String volunteerMemberId() {
-        return this.volunteerMemberId;
+	return this.volunteerMemberId;
     }
 }

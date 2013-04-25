@@ -14,51 +14,35 @@
 
 package com.saasovation.identityaccess.domain.model.identity;
 
-import java.util.Date;
-
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class UserEnablementChanged implements DomainEvent {
+public class UserEnablementChanged extends DomainEvent {
 
     private Enablement enablement;
-    private int eventVersion;
-    private Date occurredOn;
     private TenantId tenantId;
     private String username;
 
     public UserEnablementChanged(
-            TenantId aTenantId,
-            String aUsername,
-            Enablement anEnablement) {
+	    TenantId aTenantId,
+	    String aUsername,
+	    Enablement anEnablement) {
 
-        super();
+	super();
 
-        this.enablement = anEnablement;
-        this.eventVersion = 1;
-        this.occurredOn = new Date();
-        this.tenantId = aTenantId;
-        this.username = aUsername;
+	this.enablement = anEnablement;
+	this.tenantId = aTenantId;
+	this.username = aUsername;
     }
 
     public Enablement enablement() {
-        return this.enablement;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.enablement;
     }
 
     public TenantId tenantId() {
-        return this.tenantId;
+	return this.tenantId;
     }
 
     public String username() {
-        return this.username;
+	return this.username;
     }
 }

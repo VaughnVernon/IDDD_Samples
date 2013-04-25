@@ -26,58 +26,58 @@ import com.saasovation.common.notification.PublishedNotificationTracker;
 import com.saasovation.common.persistence.PersistenceManagerProvider;
 
 public class LevelDBPublishedNotificationTrackerStoreTest
-        extends TestCase {
+extends TestCase {
 
-    private static final String TEST_DATABASE = "/data/leveldb/iddd_common_test";
+    private static final String TEST_DATABASE = "target/data/leveldb/iddd_common_test";
 
     private DB database;
     private EventStore eventStore;
     private LevelDBPublishedNotificationTrackerStore publishedNotificationTrackerStore;
 
     public void testTrackMostRecentPublishedNotification() throws Exception {
-        NotificationLogFactory factory = new NotificationLogFactory(eventStore);
-        NotificationLog log = factory.createCurrentNotificationLog();
+	NotificationLogFactory factory = new NotificationLogFactory(eventStore);
+	NotificationLog log = factory.createCurrentNotificationLog();
 
-        this.publishedNotificationTrackerStore
-            .trackMostRecentPublishedNotification(
-                    new PublishedNotificationTracker("saasOvation_test"),
-                    log.notifications());
+	this.publishedNotificationTrackerStore
+	.trackMostRecentPublishedNotification(
+		new PublishedNotificationTracker("saasOvation_test"),
+		log.notifications());
 
-        LevelDBUnitOfWork.current().commit();
+	LevelDBUnitOfWork.current().commit();
 
-        PublishedNotificationTracker tracker =
-                this.publishedNotificationTrackerStore
-                    .publishedNotificationTracker();
+	PublishedNotificationTracker tracker =
+		this.publishedNotificationTrackerStore
+		.publishedNotificationTracker();
 
-        int notifications = log.notifications().size();
+	int notifications = log.notifications().size();
 
-        assertNotNull(tracker);
-        assertEquals(log.notifications().get(notifications - 1).notificationId(),
-                tracker.mostRecentPublishedNotificationId());
+	assertNotNull(tracker);
+	assertEquals(log.notifications().get(notifications - 1).notificationId(),
+		tracker.mostRecentPublishedNotificationId());
     }
 
     @Override
     protected void setUp() throws Exception {
-        this.database = LevelDBProvider.instance().databaseFrom(TEST_DATABASE);
+	this.database = LevelDBProvider.instance().databaseFrom(TEST_DATABASE);
 
-        LevelDBProvider.instance().purge(this.database);
+	LevelDBProvider.instance().purge(this.database);
 
-        this.eventStore = new MockEventStore(new PersistenceManagerProvider() {});
+	this.eventStore = new MockEventStore(new PersistenceManagerProvider() {});
 
-        assertNotNull(eventStore);
+	assertNotNull(eventStore);
 
-        this.publishedNotificationTrackerStore =
-                new LevelDBPublishedNotificationTrackerStore(
-                        TEST_DATABASE,
-                        "saasOvation_test");
+	this.publishedNotificationTrackerStore =
+		new LevelDBPublishedNotificationTrackerStore(
+			TEST_DATABASE,
+			"saasOvation_test");
 
-        super.setUp();
+	super.setUp();
     }
 
     @Override
     protected void tearDown() throws Exception {
-        LevelDBProvider.instance().purge(this.database);
+	LevelDBProvider.instance().purge(this.database);
 
-        super.tearDown();
+	super.tearDown();
     }
 }

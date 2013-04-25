@@ -31,93 +31,93 @@ public class Notification extends AssertionConcern implements Serializable {
     private int version;
 
     public Notification(
-            long aNotificationId,
-            DomainEvent anEvent) {
+	    long aNotificationId,
+	    DomainEvent anEvent) {
 
-        this();
+	this();
 
-        this.setEvent(anEvent);
-        this.setNotificationId(aNotificationId);
-        this.setOccurredOn(anEvent.occurredOn());
-        this.setTypeName(anEvent.getClass().getName());
-        this.setVersion(anEvent.eventVersion());
+	this.setEvent(anEvent);
+	this.setNotificationId(aNotificationId);
+	this.setOccurredOn(new Date());
+	this.setVersion(1);
+	this.setTypeName(anEvent.getClass().getName());
     }
 
     @SuppressWarnings("unchecked")
     public <T extends DomainEvent> T event() {
-        return (T) this.event;
+	return (T) this.event;
     }
 
     public long notificationId() {
-        return this.notificationId;
+	return this.notificationId;
     }
 
     public Date occurredOn() {
-        return this.occurredOn;
+	return this.occurredOn;
     }
 
     public String typeName() {
-        return this.typeName;
+	return this.typeName;
     }
 
     public int version() {
-        return version;
+	return version;
     }
 
     @Override
     public boolean equals(Object anObject) {
-        boolean equalObjects = false;
+	boolean equalObjects = false;
 
-        if (anObject != null && this.getClass() == anObject.getClass()) {
-            Notification typedObject = (Notification) anObject;
-            equalObjects = this.notificationId() == typedObject.notificationId();
-        }
+	if (anObject != null && this.getClass() == anObject.getClass()) {
+	    Notification typedObject = (Notification) anObject;
+	    equalObjects = this.notificationId() == typedObject.notificationId();
+	}
 
-        return equalObjects;
+	return equalObjects;
     }
 
     @Override
     public int hashCode() {
-        int hashCodeValue =
-            + (3017 * 197)
-            + (int) this.notificationId();
+	int hashCodeValue =
+		+ (3017 * 197)
+		+ (int) this.notificationId();
 
-        return hashCodeValue;
+	return hashCodeValue;
     }
 
     @Override
     public String toString() {
-        return "Notification [event=" + event + ", notificationId=" + notificationId
-                + ", occurredOn=" + occurredOn + ", typeName="
-                + typeName + ", version=" + version + "]";
+	return "Notification [event=" + event + ", notificationId=" + notificationId
+		+ ", occurredOn=" + occurredOn + ", typeName="
+		+ typeName + ", version=" + version + "]";
     }
 
     protected Notification() {
-        super();
+	super();
     }
 
     protected void setEvent(DomainEvent anEvent) {
-        this.assertArgumentNotNull(anEvent, "The event is required.");
+	this.assertArgumentNotNull(anEvent, "The event is required.");
 
-        this.event = anEvent;
+	this.event = anEvent;
     }
 
     protected void setNotificationId(long aNotificationId) {
-        this.notificationId = aNotificationId;
+	this.notificationId = aNotificationId;
     }
 
     protected void setOccurredOn(Date anOccurredOn) {
-        this.occurredOn = anOccurredOn;
+	this.occurredOn = anOccurredOn;
     }
 
     protected void setTypeName(String aTypeName) {
-        this.assertArgumentNotEmpty(aTypeName, "The type name is required.");
-        this.assertArgumentLength(aTypeName, 100, "The type name must be 100 characters or less.");
+	this.assertArgumentNotEmpty(aTypeName, "The type name is required.");
+	this.assertArgumentLength(aTypeName, 100, "The type name must be 100 characters or less.");
 
-        this.typeName = aTypeName;
+	this.typeName = aTypeName;
     }
 
     private void setVersion(int aVersion) {
-        this.version = aVersion;
+	this.version = aVersion;
     }
 }

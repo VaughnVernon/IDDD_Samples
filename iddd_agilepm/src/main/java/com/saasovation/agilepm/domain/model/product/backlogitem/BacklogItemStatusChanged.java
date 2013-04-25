@@ -14,48 +14,32 @@
 
 package com.saasovation.agilepm.domain.model.product.backlogitem;
 
-import java.util.Date;
-
 import com.saasovation.agilepm.domain.model.tenant.TenantId;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class BacklogItemStatusChanged implements DomainEvent {
+public class BacklogItemStatusChanged extends DomainEvent {
 
     private BacklogItemId backlogItemId;
-    private int eventVersion;
-    private Date occurredOn;
     private BacklogItemStatus status;
     private TenantId tenantId;
 
     public BacklogItemStatusChanged(TenantId aTenantId, BacklogItemId aBacklogItemId, BacklogItemStatus aStatus) {
-        super();
+	super();
 
-        this.backlogItemId = aBacklogItemId;
-        this.eventVersion = 1;
-        this.occurredOn = new Date();
-        this.status = aStatus;
-        this.tenantId = aTenantId;
+	this.backlogItemId = aBacklogItemId;
+	this.status = aStatus;
+	this.tenantId = aTenantId;
     }
 
     public BacklogItemId backlogItemId() {
-        return this.backlogItemId;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.backlogItemId;
     }
 
     public BacklogItemStatus status() {
-        return this.status;
+	return this.status;
     }
 
     public TenantId tenantId() {
-        return this.tenantId;
+	return this.tenantId;
     }
 }

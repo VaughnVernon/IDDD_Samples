@@ -26,32 +26,32 @@ public class EventStoreProvider {
     private EventStore eventStore;
 
     public static EventStoreProvider instance() {
-        return new EventStoreProvider();
+	return new EventStoreProvider();
     }
 
     public EventStore eventStore() {
-        return this.eventStore;
+	return this.eventStore;
     }
 
     protected EventStoreProvider() {
-        super();
+	super();
 
-        this.initializeLevelDB();
+	this.initializeLevelDB();
 
-        this.initializeMySQL();
+	this.initializeMySQL();
     }
 
     private void initializeLevelDB() {
-        if (FOR_LEVELDB) {
-            this.eventStore =
-                    LevelDBEventStore
-                            .instance("/data/leveldb/iddd_collaboration_es");
-        }
+	if (FOR_LEVELDB) {
+	    this.eventStore =
+		    LevelDBEventStore
+		    .instance("target/data/leveldb/iddd_collaboration_es");
+	}
     }
 
     private void initializeMySQL() {
-        if (FOR_MYSQL) {
-            this.eventStore = MySQLJDBCEventStore.instance();
-        }
+	if (FOR_MYSQL) {
+	    this.eventStore = MySQLJDBCEventStore.instance();
+	}
     }
 }

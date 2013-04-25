@@ -14,73 +14,57 @@
 
 package com.saasovation.collaboration.domain.model.calendar;
 
-import java.util.Date;
-
 import com.saasovation.collaboration.domain.model.tenant.Tenant;
 import com.saasovation.common.domain.model.DomainEvent;
 
-public class CalendarEntryRescheduled implements DomainEvent {
+public class CalendarEntryRescheduled extends DomainEvent {
 
     private Alarm alarm;
     private CalendarEntryId calendarEntryId;
     private CalendarId calendarId;
-    private int eventVersion;
-    private Date occurredOn;
     private Repetition repetition;
     private Tenant tenant;
     private TimeSpan timeSpan;
 
     public CalendarEntryRescheduled(
-            Tenant aTenant,
-            CalendarId aCalendarId,
-            CalendarEntryId aCalendarEntryId,
-            TimeSpan aTimeSpan,
-            Repetition aRepetition,
-            Alarm anAlarm) {
+	    Tenant aTenant,
+	    CalendarId aCalendarId,
+	    CalendarEntryId aCalendarEntryId,
+	    TimeSpan aTimeSpan,
+	    Repetition aRepetition,
+	    Alarm anAlarm) {
 
-        super();
+	super();
 
-        this.alarm = anAlarm;
-        this.calendarEntryId = aCalendarEntryId;
-        this.calendarId = aCalendarId;
-        this.eventVersion = 1;
-        this.occurredOn = new Date();
-        this.repetition = aRepetition;
-        this.tenant = aTenant;
-        this.timeSpan = aTimeSpan;
+	this.alarm = anAlarm;
+	this.calendarEntryId = aCalendarEntryId;
+	this.calendarId = aCalendarId;
+	this.repetition = aRepetition;
+	this.tenant = aTenant;
+	this.timeSpan = aTimeSpan;
     }
 
     public Alarm alarm() {
-        return this.alarm;
+	return this.alarm;
     }
 
     public CalendarEntryId calendarEntryId() {
-        return this.calendarEntryId;
+	return this.calendarEntryId;
     }
 
     public CalendarId calendarId() {
-        return this.calendarId;
-    }
-
-    @Override
-    public int eventVersion() {
-        return this.eventVersion;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return this.occurredOn;
+	return this.calendarId;
     }
 
     public Repetition repetition() {
-        return this.repetition;
+	return this.repetition;
     }
 
     public Tenant tenant() {
-        return this.tenant;
+	return this.tenant;
     }
 
     public TimeSpan timeSpan() {
-        return this.timeSpan;
+	return this.timeSpan;
     }
 }
