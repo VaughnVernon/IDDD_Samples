@@ -40,7 +40,6 @@ project(':iddd_identityaccess') {
     dependencies {
         compile project(':iddd_common')
         compile group: 'org.springframework', name: 'spring', version: '2.5.6'
-        compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.7.2'
         compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.0-rc1'
         compile group: 'org.jboss.resteasy', name: 'resteasy-cache-core', version: '2.0.1.GA'
 
