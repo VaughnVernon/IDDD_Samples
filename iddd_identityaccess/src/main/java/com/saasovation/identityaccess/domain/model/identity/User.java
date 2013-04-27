@@ -115,9 +115,8 @@ public class User extends ConcurrencySafeEntity {
 
     @Override
     public String toString() {
-        return "User [enablement=" + enablement + ", password=" + password
-                + ", person=" + person + ", tenantId=" + tenantId
-                + ", username=" + username + "]";
+        return "User [tenantId=" + tenantId + ", username=" + username
+                + ", person=" + person + ", enablement=" + enablement + "]";
     }
 
     protected User(

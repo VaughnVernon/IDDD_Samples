@@ -14,21 +14,16 @@
 
 package com.saasovation.identityaccess.domain.model.identity;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public final class InvitationDescriptor implements Serializable {
+import com.saasovation.common.AssertionConcern;
 
-    private static final long serialVersionUID = 1L;
+public final class InvitationDescriptor extends AssertionConcern {
 
     private String description;
-
     private String invitationId;
-
     private Date startingOn;
-
     private TenantId tenantId;
-
     private Date until;
 
     public InvitationDescriptor(
@@ -82,20 +77,19 @@ public final class InvitationDescriptor implements Serializable {
     @Override
     public boolean equals(Object anObject) {
         boolean equalObjects = false;
+
         if (anObject != null && this.getClass() == anObject.getClass()) {
             InvitationDescriptor typedObject = (InvitationDescriptor) anObject;
             equalObjects =
-                ((this.tenantId() == null && typedObject.tenantId() == null) ||
-                 (this.tenantId() != null && this.tenantId().equals(typedObject.tenantId()))) &&
-                ((this.invitationId() == null && typedObject.invitationId() == null) ||
-                 (this.invitationId() != null && this.invitationId().equals(typedObject.invitationId()))) &&
-                ((this.description() == null && typedObject.description() == null) ||
-                 (this.description() != null && this.description().equals(typedObject.description()))) &&
+                this.tenantId().equals(typedObject.tenantId()) &&
+                this.invitationId().equals(typedObject.invitationId()) &&
+                this.description().equals(typedObject.description()) &&
                 ((this.startingOn() == null && typedObject.startingOn() == null) ||
                  (this.startingOn() != null && this.startingOn().equals(typedObject.startingOn()))) &&
                 ((this.until() == null && typedObject.until() == null) ||
                  (this.until() != null && this.until().equals(typedObject.until())));
         }
+
         return equalObjects;
     }
 
@@ -103,9 +97,9 @@ public final class InvitationDescriptor implements Serializable {
     public int hashCode() {
         int hashCodeValue =
             + (23279 * 199)
-            + (this.tenantId() == null ? 0:this.tenantId().hashCode())
-            + (this.invitationId() == null ? 0:this.invitationId().hashCode())
-            + (this.description() == null ? 0:this.description().hashCode())
+            + this.tenantId().hashCode()
+            + this.invitationId().hashCode()
+            + this.description().hashCode()
             + (this.startingOn() == null ? 0:this.startingOn().hashCode())
             + (this.until() == null ? 0:this.until().hashCode());
 
@@ -114,8 +108,10 @@ public final class InvitationDescriptor implements Serializable {
 
     @Override
     public String toString() {
-        return "InvitationDescriptor [description=" + description + ", invitationId=" + invitationId + ", tenantId=" + tenantId
-                + "]";
+        return "InvitationDescriptor [tenantId=" + tenantId
+                + ", invitationId=" + invitationId
+                + ", description=" + description
+                + ", startingOn=" + startingOn + ", until=" + until + "]";
     }
 
     protected InvitationDescriptor() {
@@ -123,10 +119,14 @@ public final class InvitationDescriptor implements Serializable {
     }
 
     private void setDescription(String aDescription) {
+        this.assertArgumentNotEmpty(aDescription, "The invitation description is required.");
+
         this.description = aDescription;
     }
 
     private void setInvitationId(String anInvitationId) {
+        this.assertArgumentNotEmpty(anInvitationId, "The invitationId is required.");
+
         this.invitationId = anInvitationId;
     }
 
@@ -135,6 +135,8 @@ public final class InvitationDescriptor implements Serializable {
     }
 
     private void setTenantId(TenantId aTenantId) {
+        this.assertArgumentNotNull(aTenantId, "The tenantId is required.");
+
         this.tenantId = aTenantId;
     }
 

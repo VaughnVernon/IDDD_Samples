@@ -14,7 +14,9 @@
 
 package com.saasovation.agilepm.domain.model.product.backlogitem;
 
-public class BusinessPriorityRatings {
+import com.saasovation.agilepm.domain.model.ValueObject;
+
+public class BusinessPriorityRatings extends ValueObject {
 
     private int benefit;
     private int cost;
@@ -106,33 +108,25 @@ public class BusinessPriorityRatings {
     }
 
     private void setBenefit(int aBenefit) {
-        if (aBenefit < 1 || aBenefit > 9) {
-            throw new IllegalArgumentException("Relative benefit must be between 1 and 9.");
-        }
+        this.assertArgumentRange(aBenefit, 1, 9, "Relative benefit must be between 1 and 9.");
 
         this.benefit = aBenefit;
     }
 
     private void setCost(int aCost) {
-        if (aCost < 1 || aCost > 9) {
-            throw new IllegalArgumentException("Relative cost must be between 1 and 9.");
-        }
+        this.assertArgumentRange(aCost, 1, 9, "Relative cost must be between 1 and 9.");
 
         this.cost = aCost;
     }
 
     private void setPenalty(int aPenalty) {
-        if (aPenalty < 1 || aPenalty > 9) {
-            throw new IllegalArgumentException("Relative penalty must be between 1 and 9.");
-        }
+        this.assertArgumentRange(aPenalty, 1, 9, "Relative penalty must be between 1 and 9.");
 
         this.penalty = aPenalty;
     }
 
     private void setRisk(int aRisk) {
-        if (aRisk < 1 || aRisk > 9) {
-            throw new IllegalArgumentException("Relative risk must be between 1 and 9.");
-        }
+        this.assertArgumentRange(aRisk, 1, 9, "Relative risk must be between 1 and 9.");
 
         this.risk = aRisk;
     }

@@ -23,6 +23,7 @@ import junit.framework.TestCase;
 
 import com.saasovation.common.notification.NotificationReader;
 import com.saasovation.common.port.adapter.messaging.Exchanges;
+import com.saasovation.common.port.adapter.messaging.slothmq.SlothServer;
 
 public abstract class EventTrackingTestCase extends TestCase {
 
@@ -85,6 +86,8 @@ public abstract class EventTrackingTestCase extends TestCase {
 
         for (String type : this.handledNotifications.values()) {
             if (type.equals(notificationTypeName)) {
+                System.out.println("MATCHED: " + type);
+                System.out.println("WITH: " + notificationTypeName);
                 ++count;
             }
         }
@@ -111,7 +114,11 @@ public abstract class EventTrackingTestCase extends TestCase {
     }
 
     protected void setUp() throws Exception {
-//        SlothServer.executeInProcessDetachedServer();
+        Thread.sleep(100L);
+
+        SlothServer.executeInProcessDetachedServer();
+
+        Thread.sleep(100L);
 
         DomainEventPublisher.instance().reset();
 
@@ -138,10 +145,12 @@ public abstract class EventTrackingTestCase extends TestCase {
 //        this.collaborationSlothMQExchangeListener = new TestCollaborationSlothMQExchangeListener();
 //        this.identityAccessSlothMQExchangeListener = new TestIdentityAccessSlothMQExchangeListener();
 
-        Thread.sleep(100L);
+        Thread.sleep(200L);
     }
 
     protected void tearDown() throws Exception {
+        Thread.sleep(100L);
+
         this.agilePmRabbitMQExchangeListener.close();
         this.collaborationRabbitMQExchangeListener.close();
         this.identityAccessRabbitMQExchangeListener.close();
@@ -152,7 +161,7 @@ public abstract class EventTrackingTestCase extends TestCase {
 //
 //        SlothClient.instance().closeAll();
 
-        Thread.sleep(100L);
+        super.tearDown();
     }
 
     protected class TestAgilePMRabbitMQExchangeListener

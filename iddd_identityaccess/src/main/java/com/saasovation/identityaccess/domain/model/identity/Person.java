@@ -98,8 +98,7 @@ public class Person extends ConcurrencySafeEntity {
 
     @Override
     public String toString() {
-        return "Person [contactInformation=" + contactInformation + ", name=" + name
-                + ", tenantId=" + tenantId + ", user=" + user.username() + "]";
+        return "Person [tenantId=" + tenantId + ", name=" + name + ", contactInformation=" + contactInformation + "]";
     }
 
     protected Person() {

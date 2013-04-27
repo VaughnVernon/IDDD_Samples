@@ -32,6 +32,7 @@ import com.saasovation.common.domain.model.DomainEventPublisher;
 
 public class BacklogItem extends Entity {
 
+    private String associatedIssueId;
     private BacklogItemId backlogItemId;
     private BusinessPriority businessPriority;
     private String category;
@@ -79,6 +80,16 @@ public class BacklogItem extends Entity {
 
     public boolean anyTaskHoursRemaining() {
         return this.totalTaskHoursRemaining() > 0;
+    }
+
+    public String associatedIssueId() {
+        return this.associatedIssueId;
+    }
+
+    public void associateWithIssue(String anIssueId) {
+        if (this.associatedIssueId == null) {
+            this.associatedIssueId = anIssueId;
+        }
     }
 
     public void assignBusinessPriority(BusinessPriority aBusinessPriority) {

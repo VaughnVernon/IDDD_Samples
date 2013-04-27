@@ -27,7 +27,7 @@ public class BusinessPriority extends ValueObject {
     }
 
     public BusinessPriority(BusinessPriority aBusinessPriority) {
-        this(aBusinessPriority.ratings());
+        this(new BusinessPriorityRatings(aBusinessPriority.ratings()));
     }
 
     public float costPercentage(BusinessPriorityTotals aTotals) {

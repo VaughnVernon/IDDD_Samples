@@ -18,7 +18,7 @@ import com.saasovation.agilepm.domain.model.ValueObject;
 import com.saasovation.agilepm.domain.model.discussion.DiscussionAvailability;
 import com.saasovation.agilepm.domain.model.discussion.DiscussionDescriptor;
 
-public class ProductDiscussion extends ValueObject {
+public final class ProductDiscussion extends ValueObject {
 
     private DiscussionAvailability availability;
     private DiscussionDescriptor descriptor;

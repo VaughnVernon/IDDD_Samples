@@ -20,21 +20,19 @@ public enum GroupMemberType {
         public boolean isGroup() {
             return true;
         }
-        public boolean isUser() {
-            return false;
-        }
     },
 
     User {
-        public boolean isGroup() {
-            return false;
-        }
         public boolean isUser() {
             return true;
         }
     };
 
-    public abstract boolean isGroup();
+    public boolean isGroup() {
+        return false;
+    }
 
-    public abstract boolean isUser();
+    public boolean isUser() {
+        return false;
+    }
 }

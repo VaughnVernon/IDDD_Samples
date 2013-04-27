@@ -160,8 +160,9 @@ public class Role extends ConcurrencySafeEntity {
 
     @Override
     public String toString() {
-        return "Role [description=" + description + ", name=" + name + ", supportsNesting=" + supportsNesting
-                + ", tenantId=" + tenantId + "]";
+        return "Role [tenantId=" + tenantId + ", name=" + name
+                + ", description=" + description + ", supportsNesting="
+                + supportsNesting + ", group=" + group + "]";
     }
 
     protected Role() {
