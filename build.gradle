@@ -21,6 +21,8 @@ subprojects {
 project(':iddd_common') {
 
     dependencies {
+		compile group: 'commons-logging', name: 'commons-logging', version: '1.0.4', transitive: true
+		compile group: 'commons-logging', name: 'commons-logging', version: '1.1.2', transitive: true
         compile group: 'com.google.code.gson', name: 'gson', version: '2.1'
         compile group: 'com.rabbitmq', name: 'amqp-client', version: '3.0.4'
         compile group: 'org.hibernate', name: 'hibernate', version: '3.2.7.ga'
@@ -30,6 +32,8 @@ project(':iddd_common') {
         compile group: 'javassist', name: 'javassist', version: '3.8.0.GA'
         compile group: 'javax.transaction', name: 'jta', version: '1.1'
 
+		testCompile group: 'commons-logging', name: 'commons-logging', version: '1.0.4', transitive: true
+		testCompile group: 'commons-logging', name: 'commons-logging', version: '1.1.2', transitive: true
         testCompile group: 'javax.persistence', name: 'persistence-api', version: '1.0.2' 
         testCompile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6' 
         testCompile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4' 
