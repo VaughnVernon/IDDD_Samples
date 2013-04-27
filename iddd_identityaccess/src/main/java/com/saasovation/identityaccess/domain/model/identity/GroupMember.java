@@ -65,7 +65,7 @@ public class GroupMember extends IdentifiedValueObject {
             + (21941 * 197)
             + this.tenantId().hashCode()
             + this.name().hashCode()
-            + (this.type() == null ? 0:this.type().hashCode());
+            + this.type().hashCode();
 
         return hashCodeValue;
     }

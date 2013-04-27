@@ -79,8 +79,7 @@ public class PostalAddress extends AssertionConcern implements Serializable {
         if (anObject != null && this.getClass() == anObject.getClass()) {
             PostalAddress typedObject = (PostalAddress) anObject;
             equalObjects =
-                ((this.streetAddress() == null && typedObject.streetAddress() == null) ||
-                 (this.streetAddress() != null && this.streetAddress().equals(typedObject.streetAddress()))) &&
+                this.streetAddress().equals(typedObject.streetAddress()) &&
                 this.city().equals(typedObject.city()) &&
                 this.stateProvince().equals(typedObject.stateProvince()) &&
                 this.postalCode().equals(typedObject.postalCode()) &&
@@ -94,7 +93,7 @@ public class PostalAddress extends AssertionConcern implements Serializable {
     public int hashCode() {
         int hashCodeValue =
             + (31589 * 227)
-            + (this.streetAddress() == null ? 0:this.streetAddress().hashCode())
+            + this.streetAddress().hashCode()
             + this.city().hashCode()
             + this.stateProvince().hashCode()
             + this.postalCode().hashCode()
@@ -105,9 +104,10 @@ public class PostalAddress extends AssertionConcern implements Serializable {
 
     @Override
     public String toString() {
-        return "PostalAddress [city=" + city + ", countryCode=" + countryCode
-                + ", postalCode=" + postalCode + ", stateProvince="
-                + stateProvince + ", streetAddress=" + streetAddress + "]";
+        return "PostalAddress [streetAddress=" + streetAddress
+                + ", city=" + city + ", stateProvince=" + stateProvince
+                + ", postalCode=" + postalCode
+                + ", countryCode=" + countryCode + "]";
     }
 
     protected PostalAddress() {

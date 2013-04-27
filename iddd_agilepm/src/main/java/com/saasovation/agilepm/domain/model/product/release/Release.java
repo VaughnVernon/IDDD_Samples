@@ -14,14 +14,11 @@
 
 package com.saasovation.agilepm.domain.model.product.release;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import com.saasovation.agilepm.domain.model.Entity;
 import com.saasovation.agilepm.domain.model.product.ProductId;
-import com.saasovation.agilepm.domain.model.product.backlogitem.BacklogItem;
-import com.saasovation.agilepm.domain.model.product.backlogitem.BacklogItemId;
+import com.saasovation.agilepm.domain.model.product.backlogitem.*;
 import com.saasovation.agilepm.domain.model.tenant.TenantId;
 
 public class Release extends Entity {
@@ -61,7 +58,7 @@ public class Release extends Entity {
     }
 
     public Set<ScheduledBacklogItem> allScheduledBacklogItems() {
-        return java.util.Collections.unmodifiableSet(this.backlogItems());
+        return Collections.unmodifiableSet(this.backlogItems());
     }
 
     public void archived(boolean anArchived) {

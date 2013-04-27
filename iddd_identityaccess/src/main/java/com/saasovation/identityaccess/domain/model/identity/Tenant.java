@@ -14,16 +14,10 @@
 
 package com.saasovation.identityaccess.domain.model.identity;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
-import com.saasovation.common.domain.model.ConcurrencySafeEntity;
-import com.saasovation.common.domain.model.DomainEventPublisher;
-import com.saasovation.identityaccess.domain.model.access.Role;
-import com.saasovation.identityaccess.domain.model.access.RoleProvisioned;
+import com.saasovation.common.domain.model.*;
+import com.saasovation.identityaccess.domain.model.access.*;
 
 public class Tenant extends ConcurrencySafeEntity {
 
@@ -56,17 +50,13 @@ public class Tenant extends ConcurrencySafeEntity {
     }
 
     public Collection<InvitationDescriptor> allAvailableRegistrationInvitations() {
-        if (!this.isActive()) {
-            throw new IllegalStateException("Tenant is not active.");
-        }
+        this.assertStateTrue(this.isActive(), "Tenant is not active.");
 
         return this.allRegistrationInvitationsFor(true);
     }
 
     public Collection<InvitationDescriptor> allUnavailableRegistrationInvitations() {
-        if (!this.isActive()) {
-            throw new IllegalStateException("Tenant is not active.");
-        }
+        this.assertStateTrue(this.isActive(), "Tenant is not active.");
 
         return this.allRegistrationInvitationsFor(false);
     }
@@ -251,16 +241,9 @@ public class Tenant extends ConcurrencySafeEntity {
     protected Collection<InvitationDescriptor> allRegistrationInvitationsFor(boolean isAvailable) {
         Set<InvitationDescriptor> allInvitations = new HashSet<InvitationDescriptor>();
 
-        if (this.isActive()) {
-            for (RegistrationInvitation invitation : this.registrationInvitations()) {
-                if (invitation.isAvailable() == isAvailable) {
-                    allInvitations.add(new InvitationDescriptor(
-                            invitation.tenantId(),
-                            invitation.invitationId(),
-                            invitation.description(),
-                            invitation.startingOn(),
-                            invitation.until()));
-                }
+        for (RegistrationInvitation invitation : this.registrationInvitations()) {
+            if (invitation.isAvailable() == isAvailable) {
+                allInvitations.add(invitation.toDescriptor());
             }
         }
 

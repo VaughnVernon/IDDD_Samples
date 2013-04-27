@@ -91,6 +91,16 @@ public class RegistrationInvitation extends ConcurrencySafeEntity {
         return this.tenantId;
     }
 
+    public InvitationDescriptor toDescriptor() {
+        return
+                new InvitationDescriptor(
+                        this.tenantId(),
+                        this.invitationId(),
+                        this.description(),
+                        this.startingOn(),
+                        this.until());
+    }
+
     public Date until() {
         return this.until;
     }
@@ -132,8 +142,12 @@ public class RegistrationInvitation extends ConcurrencySafeEntity {
 
     @Override
     public String toString() {
-        return "RegistrationInvitation [description=" + description + ", invitationId=" + invitationId + ", startingOn="
-                + startingOn + ", tenantId=" + tenantId + ", until=" + until + "]";
+        return "RegistrationInvitation ["
+                + "tenantId=" + tenantId
+                + ", description=" + description
+                + ", invitationId=" + invitationId
+                + ", startingOn=" + startingOn
+                + ", until=" + until + "]";
     }
 
     protected RegistrationInvitation(
