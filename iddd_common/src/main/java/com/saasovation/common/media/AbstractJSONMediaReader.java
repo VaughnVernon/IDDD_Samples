@@ -224,7 +224,7 @@ public abstract class AbstractJSONMediaReader {
             } catch (Exception e) {
                 e.printStackTrace();
 
-                throw e;
+                throw new RuntimeException(e);
             }
         }
 
