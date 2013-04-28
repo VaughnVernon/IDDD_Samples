@@ -53,67 +53,14 @@ liter each project. This is not a recommendation, but it
 did work well and save a considerable amount of work while
 producing the samples.
 
-Build and Dependencies
-----------------------
+Build
+------
+The Gradle build using Maven repositories was provided by
+Michael Andrews (Github michaelajr and Twitter @MichaelAJr).
+Thanks much!
 
-A local dependency cache was used during development, and the
-final build will be missing for a few more days. I will use
-Gradle, and need to provide support for maven/ivy repository.
-Until the time that the build is completed, this is a list of
-dependencies in the local cache:
 
-antlr-2.7.6.jar
-aspectjweaver.jar
-cglib-nodep-2.1_3.jar
-commons-codec-1.2.jar
-commons-collections-3.1.jar
-commons-dbcp-1.4.jar
-commons-httpclient-3.1.jar
-commons-logging-1.1.1.jar
-commons-pool-1.6.jar
-dom4j-1.6.1.jar
-gson-2.1.jar
-guava-12.0.jar
-hibernate3.jar
-javassist-3.8.0.GA.jar
-jaxrs-api-2.0.1.GA.jar
-jettison-1.2.jar
-jta-1.1.jar
-junit-3.8.2.jar
-junit-4.8.2.jar
-leveldb-0.6-SNAPSHOT.jar
-leveldb-api-0.6-SNAPSHOT.jar
-mail-1.4.jar
-mysql-connector-java-5.1.6-bin.jar
-persistence-api-1.0.jar
-rabbitmq-client.jar
-resteasy-atom-provider-2.0.1.GA.jar
-resteasy-cache-core-2.0.1.GA.jar
-resteasy-cdi-2.0.1.GA.jar
-resteasy-fastinfoset-provider-2.0.1.GA.jar
-resteasy-guice-2.0.1.GA.jar
-resteasy-jackson-provider-2.0.1.GA.jar
-resteasy-jaxb-provider-2.0.1.GA.jar
-resteasy-jaxrs-2.0.1.GA.jar
-resteasy-jettison-provider-2.0.1.GA.jar
-resteasy-jsapi-2.0.1.GA.jar
-resteasy-links-2.0.1.GA.jar
-resteasy-multipart-provider-2.0.1.GA.jar
-resteasy-oauth-2.0.1.GA.jar
-resteasy-spring-2.0.1.GA.jar
-resteasy-yaml-provider-2.0.1.GA.jar
-scannotation-1.0.2.jar
-servlet-api-2.5.jar
-slf4j-api-1.5.8.jar
-slf4j-simple-1.5.8.jar
-snappy-0.2.jar
-spring.jar
-tjws-2.0.1.GA.jar
-
-A few of these jar files may actually not be used, but
-I won't try to sort that out at the moment.
-
-That's it for now. I hope you benefit from the samples.
+I hope you benefit from the samples.
 
 Vaughn Vernon
 Author: Implementing Domain-Driven Design
