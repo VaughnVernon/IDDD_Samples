@@ -74,6 +74,9 @@ public class Role extends ConcurrencySafeEntity {
 
         this.group().addUser(aUser);
 
+        // NOTE: Consider what a consuming Bounded Context would
+        // need to do if this event was not enriched with the
+        // last three user person properties. (Hint: A lot.)
         DomainEventPublisher
             .instance()
             .publish(new UserAssignedToRole(
