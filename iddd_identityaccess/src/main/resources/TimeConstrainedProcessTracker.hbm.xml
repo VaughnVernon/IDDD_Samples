@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field" default-cascade="all">
+    <class name="com.saasovation.common.domain.model.process.TimeConstrainedProcessTracker" table="tbl_time_constrained_process_tracker" lazy="true">
+        <id name="timeConstrainedProcessTrackerId" type="long" column="time_constrained_process_tracker_id" unsaved-value="-1">
+	        <generator class="native" />
+        </id>
+        <version column="concurrency_version" name="concurrencyVersion" type="int" />
+        <property name="allowableDuration" column="allowable_duration" type="long" />
+        <property name="completed" column="completed" type="boolean" />
+        <property name="description" column="description" type="java.lang.String" />
+        <component name="processId" class="com.saasovation.common.domain.model.process.ProcessId">
+            <property name="id" column="process_id_id" type="java.lang.String" />
+        </component>
+        <property name="processInformedOfTimeout" column="process_informed_of_timeout" type="boolean" />
+        <property name="processTimedOutEventType" column="process_timed_out_event_type" type="java.lang.String" />
+        <property name="retryCount" column="retry_count" type="int" />
+        <property name="tenantId" column="tenant_id" type="java.lang.String" />
+        <property name="timeoutOccursOn" column="timeout_occurs_on" type="long" />
+        <property name="totalRetriesPermitted" column="total_retries_permitted" type="int" />
+    </class>
+</hibernate-mapping>

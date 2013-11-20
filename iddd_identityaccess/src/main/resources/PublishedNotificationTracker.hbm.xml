@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field" default-cascade="all">
+    <class name="com.saasovation.common.notification.PublishedNotificationTracker" table="tbl_published_notification_tracker" lazy="true">
+        <id name="publishedNotificationTrackerId" type="long" column="published_notification_tracker_id" unsaved-value="-1">
+	        <generator class="native" />
+        </id>
+        <version column="concurrency_version" name="concurrencyVersion" type="int" />
+        <property name="mostRecentPublishedNotificationId" column="most_recent_published_notification_id" type="long" />
+        <property name="typeName" column="type_name" type="java.lang.String" />
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field" default-cascade="all">
+    <class name="com.saasovation.identityaccess.domain.model.identity.RegistrationInvitation" table="tbl_registration_invitation" lazy="true">
+        <id name="id" type="long" column="id" unsaved-value="-1">
+            <generator class="native"/>
+        </id>
+        <version column="concurrency_version" name="concurrencyVersion" type="int" />
+        <property name="description" column="description" type="java.lang.String" />
+        <property name="invitationId" column="invitation_id" type="java.lang.String" />
+        <property name="startingOn" column="starting_on" type="java.util.Date" />
+        <component name="tenantId" class="com.saasovation.identityaccess.domain.model.identity.TenantId">
+            <property name="id" column="tenant_id_id" type="java.lang.String" />
+        </component>
+        <property name="until" column="until" type="java.util.Date" />
+    </class>
+</hibernate-mapping>
