@@ -1,6 +1,6 @@
 #!/bin/bash
 # -------------------------------------------
-# IDDD Common database setup
+# IDDD IdentityAccess database setup
 # -------------------------------------------
 
 echo Creating IDDD IdentityAccess database...
