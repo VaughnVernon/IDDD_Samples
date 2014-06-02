@@ -59,6 +59,10 @@ The Gradle build using Maven repositories was provided by
 Michael Andrews (Github michaelajr and Twitter @MichaelAJr).
 Thanks much!
 
+To build the project, run:
+
+$ ./gradlew clean build
+
 
 I hope you benefit from the samples.
 

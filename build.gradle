@@ -72,3 +72,7 @@ project(':iddd_agilepm') {
         testCompile files(this.project(':iddd_common').sourceSets.test.output)
     }
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
+}
