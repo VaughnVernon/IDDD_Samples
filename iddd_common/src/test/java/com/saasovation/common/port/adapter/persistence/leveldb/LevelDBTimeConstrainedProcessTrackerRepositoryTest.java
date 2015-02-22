@@ -29,7 +29,7 @@ import com.saasovation.common.domain.model.process.Process.ProcessCompletionType
 
 public class LevelDBTimeConstrainedProcessTrackerRepositoryTest extends TestCase {
 
-    private static final String TEST_DATABASE = "/data/leveldb/iddd_common_test";
+    private static final String TEST_DATABASE = LevelDBTest.TEST_DATABASE;
     private static final String TENANT_ID = "1234567890";
 
     private DB database;

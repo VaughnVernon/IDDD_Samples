@@ -32,6 +32,8 @@ import com.saasovation.common.event.sourcing.EventStreamId;
 
 public class LevelDBEventSourcingEventStoreTest extends TestCase {
 
+    protected static final String TEST_DATABASE = LevelDBEventSourcingEventStoreTest.class.getResource("/").getPath() + "/data/leveldb/esEventStore";
+
     private EventStore eventStore;
 
     public LevelDBEventSourcingEventStoreTest() {
@@ -193,7 +195,7 @@ public class LevelDBEventSourcingEventStoreTest extends TestCase {
 
     @Override
     protected void setUp() throws Exception {
-        this.eventStore = LevelDBEventStore.instance("/data/leveldb/esEventStore");
+        this.eventStore = LevelDBEventStore.instance(TEST_DATABASE);
 
         DomainEventPublisher.instance().reset();
 
