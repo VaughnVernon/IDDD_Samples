@@ -7,6 +7,8 @@
 -- =============================================================
 -- =============================================================
 
+USE iddd_common_test;
+
 CREATE TABLE `tbl_es_event_store` (
     `event_id` bigint(20) NOT NULL auto_increment,
     `event_body` varchar(65000) NOT NULL,

@@ -11,7 +11,7 @@ work, but rather as a set of reference projects for
 the book.
 
 Points of Interest
-------------------
+==================
 
 The iddd_agilepm project uses a key-value store as
 its underlying persistence mechanism, and in particular
@@ -53,8 +53,46 @@ liter each project. This is not a recommendation, but it
 did work well and save a considerable amount of work while
 producing the samples.
 
+Usage
+=====
+
+Requires
+--------
+
+- Java 7 (8+ does not work)
+- MySQL Client + Server
+- RabbitMQ
+
+Setup (with Docker)
+-------------------
+
+To make it easy to run the tests and it requirements,
+the `startContainers.sh` script is provided. Which
+will start a:
+- MySQL Server container
+- RabbitMQ Server container
+- RabbitMQ Management container
+
+If the `mysql` command is available, which is the mysql client,
+also the required SQL scripts will be imported into the MySQL
+Server.
+
+If you use the `startContainers.sh` script, you don't need
+MySQL Server and RabbitMQ installed locally. Instead,
+Docker needs to be installed as the script will start
+MySQL and RabbitMQ in Docker containers.
+
 Build
 ------
+
+You can build the project by running:
+
+```
+./gradlew build
+```
+
+This automatically downloads Gradle and builds the project, including running the tests.
+
 The Gradle build using Maven repositories was provided by
 Michael Andrews (Github michaelajr and Twitter @MichaelAJr).
 Thanks much!

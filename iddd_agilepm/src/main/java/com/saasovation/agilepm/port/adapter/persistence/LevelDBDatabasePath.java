@@ -17,6 +17,6 @@ package com.saasovation.agilepm.port.adapter.persistence;
 public class LevelDBDatabasePath {
 
     public static String agilePMPath() {
-        return "/data/leveldb/iddd_agilepm_db";
+        return LevelDBDatabasePath.class.getResource("/").getPath() + "/data/leveldb/iddd_agilepm_db";
     }
 }
