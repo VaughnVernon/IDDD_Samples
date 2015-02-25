@@ -41,7 +41,7 @@ using the same data storage (and transaction) for both.
 Two different storage mechanisms were used purposely to
 demonstrate that they can be separate.
 
-The iddd_identityaccess project uses uses object-relational
+The iddd_identityaccess project uses object-relational
 mapping (Hibernate), but so as not to leave it "boring" it
 provides a RESTful client interface and even publishes
 Domain-Event notifications via REST (logs) and RabbitMQ.
