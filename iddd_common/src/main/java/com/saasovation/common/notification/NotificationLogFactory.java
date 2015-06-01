@@ -60,7 +60,7 @@ public class NotificationLogFactory {
 
         long remainder = count % NOTIFICATIONS_PER_LOG;
 
-        if (remainder == 0) {
+        if (remainder == 0 && count > 0) {
             remainder = NOTIFICATIONS_PER_LOG;
         }
 
