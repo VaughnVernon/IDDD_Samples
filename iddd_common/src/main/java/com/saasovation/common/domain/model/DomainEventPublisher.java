@@ -36,7 +36,7 @@ public class DomainEventPublisher {
     }
 
     public <T> void publish(final T aDomainEvent) {
-        if (!this.isPublishing() && this.hasSubscribers()) {
+        if (this.hasSubscribers()) {
 
             try {
                 this.setPublishing(true);
@@ -49,7 +49,7 @@ public class DomainEventPublisher {
                 for (DomainEventSubscriber<T> subscriber : allSubscribers) {
                     Class<?> subscribedToType = subscriber.subscribedToEventType();
 
-                    if (eventType == subscribedToType || subscribedToType == DomainEvent.class) {
+                    if (eventType == subscribedToType || subscribedToType == DomainEvent.class || subscribedToType.isAssignableFrom(eventType)) {
                         subscriber.handleEvent(aDomainEvent);
                     }
                 }
@@ -67,18 +67,18 @@ public class DomainEventPublisher {
     }
 
     public void reset() {
-        if (!this.isPublishing()) {
-            this.setSubscribers(null);
-        }
+        this.setSubscribers(null);
     }
 
     @SuppressWarnings("unchecked")
     public <T> void subscribe(DomainEventSubscriber<T> aSubscriber) {
-        if (!this.isPublishing()) {
-            this.ensureSubscribersList();
-
-            this.subscribers().add(aSubscriber);
+        if (this.isPublishing()) {
+            throw new IllegalStateException("cannot subscribe while handling an event");
         }
+
+        this.ensureSubscribersList();
+
+        this.subscribers().add(aSubscriber);
     }
 
     private DomainEventPublisher() {
