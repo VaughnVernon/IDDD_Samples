@@ -129,4 +129,24 @@ public class DomainEventPublisherTest extends TestCase {
 
         assertFalse(this.anotherEventHandled);
     }
+
+    public void testPublishesEventsInheritingFromTheSubscribedToEventType() throws Exception {
+        DomainEventPublisher.instance().subscribe(new DomainEventSubscriber<TestableDomainEvent>() {
+            @Override
+            public void handleEvent(TestableDomainEvent aDomainEvent) {
+                eventHandled = true;
+            }
+
+            @Override
+            public Class<TestableDomainEvent> subscribedToEventType() {
+                return TestableDomainEvent.class;
+            }
+        });
+
+        assertFalse(this.eventHandled);
+
+        DomainEventPublisher.instance().publish(new AKindOfTestableDomainEvent(100L, "test", 1));
+
+        assertTrue(this.eventHandled);
+    }
 }

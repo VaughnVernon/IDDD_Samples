@@ -49,7 +49,7 @@ public class DomainEventPublisher {
                 for (DomainEventSubscriber<T> subscriber : allSubscribers) {
                     Class<?> subscribedToType = subscriber.subscribedToEventType();
 
-                    if (eventType == subscribedToType || subscribedToType == DomainEvent.class) {
+                    if (eventType == subscribedToType || subscribedToType == DomainEvent.class || subscribedToType.isAssignableFrom(eventType)) {
                         subscriber.handleEvent(aDomainEvent);
                     }
                 }
