@@ -5,14 +5,13 @@ allprojects {
 
 subprojects {
     repositories {
-        mavenLocal()
         mavenCentral()
 
         // JBoss Repo
         maven { url 'https://repository.jboss.org/nexus/content/groups/public-jboss/' }
     }
 
-    dependencies { 
+    dependencies {
         compile group: 'org.slf4j', name: 'slf4j-api', version: '1.5.8'
         testCompile group: 'junit', name: 'junit', version: '4.8.2'
     }
@@ -31,9 +30,9 @@ project(':iddd_common') {
         compile group: 'javassist', name: 'javassist', version: '3.8.0.GA'
         compile group: 'javax.transaction', name: 'jta', version: '1.1'
 
-        testCompile group: 'javax.persistence', name: 'persistence-api', version: '1.0.2' 
-        testCompile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6' 
-        testCompile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4' 
+        testCompile group: 'javax.persistence', name: 'persistence-api', version: '1.0.2'
+        testCompile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+        testCompile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
     }
 }
 
@@ -46,10 +45,10 @@ project(':iddd_identityaccess') {
 
         testCompile files(this.project(':iddd_common').sourceSets.test.output)
         testCompile group: 'javax.persistence', name: 'persistence-api', version: '1.0.2'
-        testCompile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6' 
-        testCompile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4' 
-        testCompile group: 'javax.servlet', name: 'servlet-api', version: '2.5' 
-        testCompile group: 'org.jboss.resteasy', name: 'tjws', version: '2.0.1.GA' 
+        testCompile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+        testCompile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
+        testCompile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+        testCompile group: 'org.jboss.resteasy', name: 'tjws', version: '2.0.1.GA'
     }
 }
 
@@ -60,8 +59,8 @@ project(':iddd_collaboration') {
 
         testCompile files(this.project(':iddd_common').sourceSets.test.output)
         testCompile group: 'javax.persistence', name: 'persistence-api', version: '1.0.2'
-        testCompile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6' 
-        testCompile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4' 
+        testCompile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+        testCompile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
     }
 }
 
