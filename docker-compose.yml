@@ -3,7 +3,7 @@ version: '3.1'
 services:
   iddd-mysql:
     restart: always
-    image: mysql
+    image: mysql:5
     ports:
       - "3306:3306"
     volumes:

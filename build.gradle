@@ -35,7 +35,10 @@ project(':iddd_common') {
         compile group: 'com.google.code.gson', name: 'gson', version: '2.1'
         compile group: 'com.rabbitmq', name: 'amqp-client', version: '3.0.4'
         compile group: 'org.hibernate', name: 'hibernate', version: '3.2.7.ga'
-        compile group: 'org.springframework', name: 'spring', version: '2.5.6'
+        compile group: 'org.springframework', name: 'spring-core', version: '3.2.18.RELEASE'
+        compile group: 'org.springframework', name: 'spring-context', version: '3.2.18.RELEASE'
+        compile group: 'org.springframework', name: 'spring-tx', version: '3.2.18.RELEASE'
+        compile group: 'org.springframework', name: 'spring-hibernate3', version: '2.0.8'
         compile group: 'org.iq80.leveldb', name: 'leveldb', version: '0.5'
         compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.7.2'
         compile group: 'javassist', name: 'javassist', version: '3.8.0.GA'
@@ -50,7 +53,10 @@ project(':iddd_common') {
 project(':iddd_identityaccess') {
     dependencies {
         compile project(':iddd_common')
-        compile group: 'org.springframework', name: 'spring', version: '2.5.6'
+        compile group: 'org.springframework', name: 'spring-core', version: '3.2.18.RELEASE'
+        compile group: 'org.springframework', name: 'spring-context', version: '3.2.18.RELEASE'
+        compile group: 'org.springframework', name: 'spring-tx', version: '3.2.18.RELEASE'
+        compile group: 'org.springframework', name: 'spring-hibernate3', version: '2.0.8'
         compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.0-rc1'
         compile group: 'org.jboss.resteasy', name: 'resteasy-cache-core', version: '2.0.1.GA'
 

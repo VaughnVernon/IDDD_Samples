@@ -1,5 +1,5 @@
 DROP DATABASE IF EXISTS iddd_collaboration;
-CREATE DATABASE iddd_collaboration;
+CREATE DATABASE iddd_collaboration DEFAULT CHARACTER SET latin1;
 USE iddd_collaboration;
 SET FOREIGN_KEY_CHECKS=0;
 
