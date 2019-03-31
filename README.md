@@ -59,25 +59,21 @@ Usage
 Requires
 --------
 
-- Java 7 (8+ does not work)
+- Java 7 or 8 (Java>8 does not work)
 - MySQL Client + Server
 - RabbitMQ
 
-Setup (with Docker)
--------------------
+Setup (with Docker Compose)
+---------------------------
 
 To make it easy to run the tests and it requirements,
-the `startContainers.sh` script is provided. Which
-will start a:
+the `docker-compose.yml` Docker Compose configuration
+file is provided. Which will start a:
 - MySQL Server container
 - RabbitMQ Server container
 - RabbitMQ Management container
 
-If the `mysql` command is available, which is the mysql client,
-also the required SQL scripts will be imported into the MySQL
-Server.
-
-If you use the `startContainers.sh` script, you don't need
+If you use Docker Compose, you don't need
 MySQL Server and RabbitMQ installed locally. Instead,
 Docker needs to be installed as the script will start
 MySQL and RabbitMQ in Docker containers.

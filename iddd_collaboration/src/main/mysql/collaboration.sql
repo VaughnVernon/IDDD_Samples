@@ -10,7 +10,7 @@ CREATE TABLE `tbl_dispatcher_last_event` (
 
 CREATE TABLE `tbl_es_event_store` (
     `event_id` bigint(20) NOT NULL auto_increment,
-    `event_body` varchar(65000) NOT NULL,
+    `event_body` text NOT NULL,
     `event_type` varchar(250) NOT NULL,
     `stream_name` varchar(250) NOT NULL,
     `stream_version` int(11) NOT NULL,
@@ -123,7 +123,7 @@ CREATE TABLE `tbl_vw_post` (
     `author_email_address` varchar(100) NOT NULL,
     `author_identity` varchar(50) NOT NULL,
     `author_name` varchar(200) NOT NULL,
-    `body_text` varchar(64000) NOT NULL,
+    `body_text` text NOT NULL,
     `changed_on` datetime NOT NULL,
     `created_on` datetime NOT NULL,
     `discussion_id` varchar(36) NOT NULL,
