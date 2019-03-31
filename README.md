@@ -59,7 +59,7 @@ Usage
 Requires
 --------
 
-- Java 7 (8+ does not work)
+- Java 7 or 8 (Java>8 does not work)
 - MySQL Client + Server
 - RabbitMQ
 
