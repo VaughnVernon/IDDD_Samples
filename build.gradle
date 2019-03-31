@@ -1,6 +1,16 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.avast.gradle:gradle-docker-compose-plugin:0.8.12'
+    }
+}
 
 allprojects {
 	apply plugin: 'java'
+
+    apply plugin: 'com.avast.gradle.docker-compose'
 }
 
 subprojects {
@@ -71,4 +81,9 @@ project(':iddd_agilepm') {
 
         testCompile files(this.project(':iddd_common').sourceSets.test.output)
     }
+}
+
+subprojects*.tasks*.withType(Test) {
+    dependsOn composeUp
+    finalizedBy composeDown
 }

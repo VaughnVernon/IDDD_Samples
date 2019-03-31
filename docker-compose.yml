@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+  iddd-mysql:
+    restart: always
+    image: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./iddd_common/src/main/mysql/test_common.sql:/docker-entrypoint-initdb.d/01_test_common.sql
+      - ./iddd_common/src/main/mysql/common.sql:/docker-entrypoint-initdb.d/02_common.sql
+      - ./iddd_identityaccess/src/main/mysql/iam.sql:/docker-entrypoint-initdb.d/03_iam.sql
+      - ./iddd_collaboration/src/main/mysql/collaboration.sql:/docker-entrypoint-initdb.d/04_collaboration.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+  rabbitmq:
+    restart: always
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "8080::15672"
+    environment:
+      RABBITMQ_NODENAME: iddd-rabbitmq-node
