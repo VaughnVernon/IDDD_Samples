@@ -171,6 +171,7 @@ public class ProductApplicationServiceTest extends ProductApplicationCommonTest 
                             product.productId());
 
         assertEquals(DiscussionAvailability.REQUESTED, productWithRetriedRequestedDiscussion.discussion().availability());
+        assertEquals(productWithDiscussionInitiation.discussionInitiationId(), productWithRetriedRequestedDiscussion.discussionInitiationId());
     }
 
     public void testStartDiscussionInitiation() throws Exception {

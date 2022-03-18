@@ -169,19 +169,7 @@ public class ProductApplicationService {
                         + aCommand.getProductId());
             }
 
-            String timedOutEventName =
-                    ProductDiscussionRequestTimedOut.class.getName();
-
-            TimeConstrainedProcessTracker tracker =
-                    new TimeConstrainedProcessTracker(
-                            product.tenantId().id(),
-                            ProcessId.newProcessId(),
-                            "Create discussion for product: "
-                                + product.name(),
-                            new Date(),
-                            5L * 60L * 1000L, // retries every 5 minutes
-                            3, // 3 total retries
-                            timedOutEventName);
+            TimeConstrainedProcessTracker tracker = processTrackerOfProduct(product);
 
             this.processTrackerRepository().save(tracker);
 
@@ -310,4 +298,32 @@ public class ProductApplicationService {
             ApplicationServiceLifeCycle.fail(e);
         }
     }
+
+    private TimeConstrainedProcessTracker processTrackerOfProduct(Product aProduct) {
+        TimeConstrainedProcessTracker tracker = null;
+
+        if(aProduct.discussionInitiationId() != null) {
+            ProcessId processId = ProcessId.existingProcessId(aProduct.discussionInitiationId());
+
+            tracker = this.processTrackerRepository()
+                    .trackerOfProcessId(aProduct.tenantId().id(), processId);
+        } else {
+            String timedOutEventName =
+                    ProductDiscussionRequestTimedOut.class.getName();
+
+            tracker =
+                    new TimeConstrainedProcessTracker(
+                            aProduct.tenantId().id(),
+                            ProcessId.newProcessId(),
+                            "Create discussion for product: "
+                                    + aProduct.name(),
+                            new Date(),
+                            5L * 60L * 1000L, // retries every 5 minutes
+                            3, // 3 total retries
+                            timedOutEventName);
+        }
+
+        return tracker;
+    }
+
 }
