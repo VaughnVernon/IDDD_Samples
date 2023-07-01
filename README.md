@@ -4,7 +4,7 @@ These are the sample Bounded Contexts from the book
 http://vaughnvernon.co/?page_id=168
 
 The models and surrounding architectural mechanisms
-may be in various states of flux as the are refined
+may be in various states of flux as they are refined
 over time. Some tests may be incomplete. The code is
 not meant to be a reflection of a production quality
 work, but rather as a set of reference projects for
