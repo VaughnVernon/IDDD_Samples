@@ -59,8 +59,8 @@ Usage
 Requires
 --------
 
-- Java 7 (8+ does not work)
-- MySQL Client + Server
+- Java 8+
+- MySQL 5 Client + Server
 - RabbitMQ
 
 Setup (with Docker)
@@ -82,6 +82,9 @@ MySQL Server and RabbitMQ installed locally. Instead,
 Docker needs to be installed as the script will start
 MySQL and RabbitMQ in Docker containers.
 
+If you have Docker Compose installed, you can also start the
+containers by running `docker compose up`.
+
 Build
 ------
 
@@ -92,6 +95,9 @@ You can build the project by running:
 ```
 
 This automatically downloads Gradle and builds the project, including running the tests.
+It will also download a Java toolchain that is appropriate
+ for compiling and running the project, if none can be found
+ locally.
 
 The Gradle build using Maven repositories was provided by
 Michael Andrews (Github michaelajr and Twitter @MichaelAJr).
