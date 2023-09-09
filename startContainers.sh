@@ -17,7 +17,7 @@ containers[1]="${rabbitmqContainerName}"
 function start() {
     echo "Starting MySQL Server container..."
     docker rm -f "${mysqlContainerName}"
-    docker run --name "${mysqlContainerName}" -p "${mysqlPort}":3306 -e MYSQL_ROOT_PASSWORD="${mysqlPassword}" -d mysql
+    docker run --name "${mysqlContainerName}" -p "${mysqlPort}":3306 -e MYSQL_ROOT_PASSWORD="${mysqlPassword}" -d mysql:5
 
     echo "Waiting for MySQL Server to be up and running..."
     waitForContainer "${mysqlContainerName}" "mysqld: ready for connections."
