@@ -20,4 +20,9 @@ dependencies {
 
     testFixturesImplementation(group = "junit", name = "junit", version = "4.8.2")
     testFixturesImplementation(group = "com.google.code.gson", name = "gson", version = "2.1")
+    testFixturesImplementation(group = "javax.persistence", name = "persistence-api", version = "1.0.2")
+    testFixturesImplementation(group = "org.hibernate", name = "hibernate", version = "3.2.7.ga")     {
+        exclude(group = "javax.transaction", module = "jta")
+    }
+    testFixturesImplementation(group = "org.springframework", name = "spring-orm", version = "3.1.4.RELEASE")
 }
