@@ -4,7 +4,9 @@ plugins {
 
 dependencies {
     implementation(project(":iddd_common"))
-    implementation(group = "org.springframework", name = "spring", version = "2.5.6")
+    implementation(group = "org.springframework", name = "spring-core", version = "3.1.4.RELEASE")
+    implementation(group = "org.springframework", name = "spring-beans", version = "3.1.4.RELEASE")
+    implementation(group = "org.springframework", name = "spring-tx", version = "3.1.4.RELEASE")
     implementation(group = "javax.ws.rs", name = "javax.ws.rs-api", version = "2.0-rc1")
     implementation(group = "org.jboss.resteasy", name = "resteasy-cache-core", version = "2.0.1.GA")
 
