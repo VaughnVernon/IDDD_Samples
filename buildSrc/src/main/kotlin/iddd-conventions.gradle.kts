@@ -30,3 +30,8 @@ java {
         useCompileClasspathVersions()
     }
 }
+
+tasks.withType(Test::class.java).configureEach {
+    // Workaround for non-English locales, because checks on decimals fail.
+    jvmArgs("-Duser.language=en -Duser.country=CA")
+}
