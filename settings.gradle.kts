@@ -1,5 +1,3 @@
-import java.net.URI
-
 include(
     "iddd_common",
     "iddd_identityaccess",
@@ -13,6 +11,6 @@ dependencyResolutionManagement {
         mavenCentral()
 
         // JBoss Repo
-        maven { url = URI("https://repository.jboss.org/nexus/content/groups/public-jboss/") }
+        maven { url = uri("https://repository.jboss.org/nexus/content/groups/public-jboss/") }
     }
 }
