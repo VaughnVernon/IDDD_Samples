@@ -17,6 +17,7 @@ dependencies {
     testImplementation(group = "javax.persistence", name = "persistence-api", version = "1.0.2")
     testImplementation(group = "mysql", name = "mysql-connector-java", version = "5.1.6")
     testImplementation(group = "commons-dbcp", name = "commons-dbcp", version = "1.4")
+    testImplementation(group= "org.apache.logging.log4j", name= "log4j-slf4j-impl", version= "2.19.0")
 
     testFixturesImplementation(group = "junit", name = "junit", version = "4.8.2")
     testFixturesImplementation(group = "com.google.code.gson", name = "gson", version = "2.1")
