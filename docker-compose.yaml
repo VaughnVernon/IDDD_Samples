@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.4'
 services:
   mysql:
     container_name: iddd-mysql
@@ -14,9 +14,21 @@ services:
       - ./iddd_common/src/main/mysql/common.sql:/docker-entrypoint-initdb.d/50_common.sql:ro
       - ./iddd_identityaccess/src/main/mysql/iam.sql:/docker-entrypoint-initdb.d/60_iam.sql:ro
       - ./iddd_collaboration/src/main/mysql/collaboration.sql:/docker-entrypoint-initdb.d/60_collaboration.sql:ro
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+      start_period: 5s
+      interval: 5s
+      timeout: 10s
+      retries: 10
   rabbitmq:
     container_name: iddd-rabbitmq
     image: rabbitmq:3-management
     ports:
       - 5672:5672
       - 8080:15672  # management port
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      start_period: 5s
+      interval: 5s
+      timeout: 10s
+      retries: 10
