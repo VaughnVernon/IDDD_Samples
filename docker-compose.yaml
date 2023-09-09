@@ -1,0 +1,22 @@
+version: '3.1'
+services:
+  mysql:
+    container_name: iddd-mysql
+    image: mysql:5
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      # Files are spread over all components, but need to available in a single location.
+      # startContainers.sh requires test files to be applied first, so names are mapped to match this policy.
+      - ./iddd_common/src/main/mysql/test_common.sql:/docker-entrypoint-initdb.d/40_test_common.sql:ro
+      - ./iddd_common/src/main/mysql/common.sql:/docker-entrypoint-initdb.d/50_common.sql:ro
+      - ./iddd_identityaccess/src/main/mysql/iam.sql:/docker-entrypoint-initdb.d/60_iam.sql:ro
+      - ./iddd_collaboration/src/main/mysql/collaboration.sql:/docker-entrypoint-initdb.d/60_collaboration.sql:ro
+  rabbitmq:
+    container_name: iddd-rabbitmq
+    image: rabbitmq:3-management
+    ports:
+      - 5672:5672
+      - 8080:15672  # management port
