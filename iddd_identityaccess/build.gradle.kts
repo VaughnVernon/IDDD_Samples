@@ -8,6 +8,9 @@ dependencies {
     implementation(group = "javax.ws.rs", name = "javax.ws.rs-api", version = "2.0-rc1")
     implementation(group = "org.jboss.resteasy", name = "resteasy-cache-core", version = "2.0.1.GA")
 
+    implementation(group = "org.aspectj", name = "aspectjweaver", version = "1.7.2")
+    implementation(group = "org.hibernate", name = "hibernate", version = "3.2.7.ga")
+    
     // testImplementation (files (this.project(":iddd_common").sourceSets.test.output)    )
     testImplementation(group = "javax.persistence", name = "persistence-api", version = "1.0.2")
     testImplementation(group = "mysql", name = "mysql-connector-java", version = "5.1.6")
